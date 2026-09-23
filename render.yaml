@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: english-made-easy
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeployTrigger: commit
