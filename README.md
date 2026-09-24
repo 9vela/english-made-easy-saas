@@ -1,40 +1,27 @@
-# English Made Easy — SaaS MVP v2
+# English Made Easy — v4
 
-## Premium plans
-- Weekly — $2 / 7 days
-- Monthly — $5 / 30 days
-- Annual — $40 / 365 days
+Persistent PostgreSQL version with four learning levels.
 
-> Prices are placeholders and the checkout is still DEMO. No real payment is collected.
+## Learning path
+- Level 1 — Basic English: 8 chapters, 2 tests (checkpoint after the first 3 free chapters + final test), pronunciation, certificate.
+- Level 2 — Practical English: 10 chapters, 3 tests, pronunciation, certificate.
+- Level 3 — Professional English: 10 chapters, 3 tests, pronunciation, certificate.
+- Level 4 — Advanced English: 10 chapters, 3 tests, pronunciation, certificate.
 
-## Run locally
-1. Install Node.js.
-2. Open this folder in a terminal.
-3. Run `npm install`.
-4. Run `npm start`.
-5. Open `http://localhost:3000`.
+A level unlocks only after the previous level's chapters are completed and all required tests are passed. New users can see all levels immediately, but locked levels are clearly shown.
 
-## Publish online with Render
-This project is prepared for a Node/Express Web Service. Render supports Node.js/Express and can deploy from a connected Git repository. Use:
-- Build Command: `npm install`
-- Start Command: `npm start`
-- Runtime: Node
+## Included
+- PostgreSQL persistence for users, sessions, courses, lessons, progress, tests, attempts, certificates, pronunciation attempts, shares and country pricing.
+- Country-specific currency/pricing.
+- Admin pricing editor and basic statistics.
+- Share prompt after chapter 1.
+- Browser microphone practice using Web Speech API. This MVP checks what the browser recognized; it is not a professional phonetic/accent assessment.
+- Demo Premium upgrade only. Real payment processing still needs a payment provider and verified webhooks.
 
-For a real production SaaS, replace the in-memory data with a persistent database. Render notes that its default filesystem is ephemeral, so user/payment data should use a managed datastore or other persistent database.
+## Render environment variables
+- `DATABASE_URL` = Render PostgreSQL Internal Database URL.
+- `ADMIN_EMAIL` = your admin email.
+- `ADMIN_PASSWORD` = a strong admin password.
 
-### GitHub + Render
-1. Create a GitHub repository.
-2. Upload all project files to the repository.
-3. In Render, create **New → Web Service** and connect the repository.
-4. Set Build Command to `npm install` and Start Command to `npm start`.
-5. Deploy. Render will provide an `onrender.com` address.
-6. Later, connect a custom domain.
-
-## Still required before accepting real payments
-- Persistent database (PostgreSQL recommended for production)
-- Secure password hashing and stronger session management
-- Real payment provider and webhook verification
-- HTTPS, email verification and password reset
-- Admin dashboard
-- Terms, privacy policy and refund/cancellation rules
-- Production monitoring/backups
+## Important
+The PostgreSQL Free instance shown in Render may expire/delete according to Render's current free-plan policy. For a real production business, use a paid/persistent database plan and backups before relying on it for customer data.
