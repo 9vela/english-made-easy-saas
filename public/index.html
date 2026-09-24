@@ -1,43 +1,839 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>English Made Easy</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f6f8fc;color:#172033}nav{display:flex;justify-content:space-between;align-items:center;padding:16px 7%;background:#fff;box-shadow:0 2px 12px #0001;position:sticky;top:0;z-index:4}.logo{font-weight:800;font-size:21px;color:#3157d5}.nav button{margin-left:8px}.btn{border:0;border-radius:10px;padding:11px 17px;font-weight:700;cursor:pointer}.primary{background:#3157d5;color:white}.light{background:#eaf0ff;color:#3157d5}.danger{background:#ffe9e9;color:#b22}.hero{padding:65px 7%;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;background:linear-gradient(135deg,#eef3ff,#fff)}h1{font-size:52px;line-height:1.05;margin:10px 0}.tag{color:#3157d5;font-weight:800;letter-spacing:1px}.lead{font-size:18px;line-height:1.6;color:#5b667c}.card{background:white;padding:24px;border-radius:18px;box-shadow:0 8px 28px #0000000c;margin:20px 0}.section{padding:55px 7%}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.lesson{cursor:pointer}.lesson:hover{transform:translateY(-2px)}.premium{color:#8a5b00}.free{color:#198754}.bar{height:12px;background:#e6e9f0;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:#3157d5}.hidden{display:none}.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}.modalbox{background:white;padding:28px;border-radius:18px;width:min(430px,100%)}input{width:100%;padding:13px;margin:7px 0 12px;border:1px solid #d8dce5;border-radius:9px}.dashboard{background:#fff}.small{font-size:14px;color:#69748a}.pricing{background:#172033;color:#fff}.pricing .card{color:#172033}.price{font-size:40px;font-weight:800}.toast{position:fixed;right:20px;bottom:20px;background:#172033;color:#fff;padding:14px 18px;border-radius:10px;display:none}.footer{text-align:center;padding:25px;background:#101727;color:#b9c1d1}@media(max-width:800px){.hero{grid-template-columns:1fr}h1{font-size:40px}.grid{grid-template-columns:1fr}.nav .desktop{display:none}}
-</style></head>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Inter,Arial,sans-serif;
+  background:#f6f8fc;
+  color:#172033
+}
+
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 7%;
+  background:#fff;
+  box-shadow:0 2px 12px #0001;
+  position:sticky;
+  top:0;
+  z-index:4
+}
+
+.logo{
+  font-weight:800;
+  font-size:21px;
+  color:#3157d5
+}
+
+.nav button{
+  margin-left:8px
+}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:11px 17px;
+  font-weight:700;
+  cursor:pointer
+}
+
+.primary{
+  background:#3157d5;
+  color:white
+}
+
+.light{
+  background:#eaf0ff;
+  color:#3157d5
+}
+
+.danger{
+  background:#ffe9e9;
+  color:#b22
+}
+
+.hero{
+  padding:65px 7%;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:40px;
+  background:linear-gradient(135deg,#eef3ff,#fff)
+}
+
+h1{
+  font-size:52px;
+  line-height:1.05;
+  margin:10px 0
+}
+
+.tag{
+  color:#3157d5;
+  font-weight:800;
+  letter-spacing:1px
+}
+
+.lead{
+  font-size:18px;
+  line-height:1.6;
+  color:#5b667c
+}
+
+.card{
+  background:white;
+  padding:24px;
+  border-radius:18px;
+  box-shadow:0 8px 28px #0000000c;
+  margin:20px 0
+}
+
+.section{
+  padding:55px 7%
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px
+}
+
+.lesson{
+  cursor:pointer
+}
+
+.lesson:hover{
+  transform:translateY(-2px)
+}
+
+.premium{
+  color:#8a5b00
+}
+
+.free{
+  color:#198754
+}
+
+.bar{
+  height:12px;
+  background:#e6e9f0;
+  border-radius:20px;
+  overflow:hidden
+}
+
+.bar i{
+  display:block;
+  height:100%;
+  background:#3157d5
+}
+
+/* CORREÇÃO DA JANELA BRANCA */
+.hidden{
+  display:none !important
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#0008;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:10
+}
+
+/* Garante que qualquer modal com hidden fique fechado */
+.modal.hidden{
+  display:none !important
+}
+
+.modalbox{
+  background:white;
+  padding:28px;
+  border-radius:18px;
+  width:min(430px,100%);
+  max-height:90vh;
+  overflow:auto
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin:7px 0 12px;
+  border:1px solid #d8dce5;
+  border-radius:9px
+}
+
+.dashboard{
+  background:#fff
+}
+
+.small{
+  font-size:14px;
+  color:#69748a
+}
+
+.pricing{
+  background:#172033;
+  color:#fff
+}
+
+.pricing .card{
+  color:#172033
+}
+
+.price{
+  font-size:40px;
+  font-weight:800
+}
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#172033;
+  color:#fff;
+  padding:14px 18px;
+  border-radius:10px;
+  display:none;
+  z-index:20
+}
+
+.footer{
+  text-align:center;
+  padding:25px;
+  background:#101727;
+  color:#b9c1d1
+}
+
+@media(max-width:800px){
+  .hero{
+    grid-template-columns:1fr
+  }
+
+  h1{
+    font-size:40px
+  }
+
+  .grid{
+    grid-template-columns:1fr
+  }
+
+  .nav .desktop{
+    display:none
+  }
+
+  nav{
+    padding:14px 4%
+  }
+
+  .nav button{
+    padding:9px 11px;
+    font-size:13px
+  }
+}
+</style>
+</head>
+
 <body>
-<nav><div class="logo">English Made Easy</div><div class="nav"><button class="btn light" id="loginBtn" onclick="openAuth('login')">Log in</button><button class="btn primary" id="signupBtn" onclick="openAuth('signup')">Create account</button><button class="btn light hidden" id="dashBtn" onclick="showDashboard()">Dashboard</button><button class="btn danger hidden" id="logoutBtn" onclick="logout()">Log out</button></div></nav>
-<header class="hero"><div><div class="tag">LEARN • PRACTICE • SPEAK • GROW</div><h1>English made simple for beginners.</h1><p class="lead">Learn practical English through short lessons, useful vocabulary, exercises and real-life speaking practice.</p><button class="btn primary" onclick="openAuth('signup')">Start Learning Free</button></div>
-<div class="card"><h2>👋 Your learning journey</h2><p id="heroText">Create a free account to save your progress.</p><div class="bar"><i id="heroProgress" style="width:0%"></i></div><p id="heroPercent">0% complete</p></div></header>
 
-<section class="section" id="courses"><div class="tag">BEGINNER COURSE</div><h2>Learn step by step</h2><div class="grid" id="lessonGrid"></div></section>
+<nav>
+  <div class="logo">English Made Easy</div>
 
-<section class="section pricing" id="pricing"><div class="tag" style="color:#b9c5ff">PREMIUM</div><h2>Unlock the full course</h2><div class="grid">
-<div class="card"><h3>Free</h3><div class="price">$0</div><p>Two beginner lessons and saved progress.</p><button class="btn light" onclick="openAuth('signup')">Start Free</button></div>
-<div class="card"><h3>Weekly</h3><div class="price">$2<small>/week</small></div><p>Full Premium access for 7 days.</p><button class="btn primary" onclick="upgrade('weekly')">Choose Weekly</button></div>
-<div class="card"><h3>Monthly</h3><div class="price">$5<small>/month</small></div><p>All lessons, exercises and speaking practice.</p><button class="btn primary" onclick="upgrade('monthly')">Choose Monthly</button></div>
-<div class="card"><h3>Annual</h3><div class="price">$40<small>/year</small></div><p>Full access for 12 months.</p><button class="btn primary" onclick="upgrade('annual')">Choose Annual</button></div></div></section>
+  <div class="nav">
+    <button class="btn light" id="loginBtn" onclick="openAuth('login')">
+      Log in
+    </button>
 
-<section class="section dashboard hidden" id="dashboard"><h2>Student Dashboard</h2><p id="welcome"></p><div class="card"><h3>Your progress</h3><div class="bar"><i id="dashProgress"></i></div><p id="dashPercent"></p><p id="plan"></p></div></section>
+    <button class="btn primary" id="signupBtn" onclick="openAuth('signup')">
+      Create account
+    </button>
 
-<div class="modal hidden" id="modal"><div class="modalbox"><button class="btn light" style="float:right" onclick="closeAuth()">✕</button><h2 id="authTitle">Create account</h2><form onsubmit="submitAuth(event)"><div id="nameWrap"><label>Name</label><input id="name"></div><label>Email</label><input id="email" type="email" required><label>Password</label><input id="password" type="password" required><button class="btn primary" style="width:100%" id="authSubmit">Create account</button></form><p class="small" id="switchAuth"></p></div></div>
-<div class="modal hidden" id="lessonModal"><div class="modalbox"><button class="btn light" style="float:right" onclick="closeLesson()">✕</button><div id="lessonBody"></div></div></div><div class="toast" id="toast"></div>
-<footer class="footer">© 2026 English Made Easy</footer>
+    <button class="btn light hidden" id="dashBtn" onclick="showDashboard()">
+      Dashboard
+    </button>
+
+    <button class="btn danger hidden" id="logoutBtn" onclick="logout()">
+      Log out
+    </button>
+  </div>
+</nav>
+
+<header class="hero">
+
+  <div>
+    <div class="tag">LEARN • PRACTICE • SPEAK • GROW</div>
+
+    <h1>
+      English made simple for beginners.
+    </h1>
+
+    <p class="lead">
+      Learn practical English through short lessons,
+      useful vocabulary, exercises and real-life speaking practice.
+    </p>
+
+    <button class="btn primary" onclick="openAuth('signup')">
+      Start Learning Free
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>👋 Your learning journey</h2>
+
+    <p id="heroText">
+      Create a free account to save your progress.
+    </p>
+
+    <div class="bar">
+      <i id="heroProgress" style="width:0%"></i>
+    </div>
+
+    <p id="heroPercent">
+      0% complete
+    </p>
+  </div>
+
+</header>
+
+<section class="section" id="courses">
+
+  <div class="tag">BEGINNER COURSE</div>
+
+  <h2>Learn step by step</h2>
+
+  <div class="grid" id="lessonGrid"></div>
+
+</section>
+
+<section class="section pricing" id="pricing">
+
+  <div class="tag" style="color:#b9c5ff">
+    PREMIUM
+  </div>
+
+  <h2>Unlock the full course</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>Free</h3>
+      <div class="price">$0</div>
+      <p>Two beginner lessons and saved progress.</p>
+
+      <button class="btn light" onclick="openAuth('signup')">
+        Start Free
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>Weekly</h3>
+      <div class="price">$2<small>/week</small></div>
+      <p>Full Premium access for 7 days.</p>
+
+      <button class="btn primary" onclick="upgrade('weekly')">
+        Choose Weekly
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>Monthly</h3>
+      <div class="price">$5<small>/month</small></div>
+      <p>All lessons, exercises and speaking practice.</p>
+
+      <button class="btn primary" onclick="upgrade('monthly')">
+        Choose Monthly
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>Annual</h3>
+      <div class="price">$40<small>/year</small></div>
+      <p>Full access for 12 months.</p>
+
+      <button class="btn primary" onclick="upgrade('annual')">
+        Choose Annual
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<section class="section dashboard hidden" id="dashboard">
+
+  <h2>Student Dashboard</h2>
+
+  <p id="welcome"></p>
+
+  <div class="card">
+
+    <h3>Your progress</h3>
+
+    <div class="bar">
+      <i id="dashProgress"></i>
+    </div>
+
+    <p id="dashPercent"></p>
+
+    <p id="plan"></p>
+
+  </div>
+</section>
+
+<!-- LOGIN / CREATE ACCOUNT MODAL -->
+
+<div class="modal hidden" id="modal">
+
+  <div class="modalbox">
+
+    <button
+      class="btn light"
+      style="float:right"
+      onclick="closeAuth()">
+      ✕
+    </button>
+
+    <h2 id="authTitle">
+      Create account
+    </h2>
+
+    <form onsubmit="submitAuth(event)">
+
+      <div id="nameWrap">
+        <label>Name</label>
+        <input id="name">
+      </div>
+
+      <label>Email</label>
+      <input id="email" type="email" required>
+
+      <label>Password</label>
+      <input id="password" type="password" required>
+
+      <button
+        class="btn primary"
+        style="width:100%"
+        id="authSubmit">
+        Create account
+      </button>
+
+    </form>
+
+    <p class="small" id="switchAuth"></p>
+
+  </div>
+</div>
+
+<!-- LESSON MODAL -->
+
+<div class="modal hidden" id="lessonModal">
+
+  <div class="modalbox">
+
+    <button
+      class="btn light"
+      style="float:right"
+      onclick="closeLesson()">
+      ✕
+    </button>
+
+    <div id="lessonBody"></div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="footer">
+  © 2026 English Made Easy
+</footer>
+
 <script>
-let token=localStorage.getItem("eme_token"), mode="signup", lessons=[];
-const $=id=>document.getElementById(id);
-function toast(x){$("toast").textContent=x;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2500)}
-async function api(url,opt={}){opt.headers={...(opt.headers||{}),...(token?{Authorization:"Bearer "+token}:{})};if(opt.body)opt.headers["Content-Type"]="application/json";let r=await fetch(url,opt),d=await r.json();if(!r.ok)throw new Error(d.error||"Something went wrong");return d}
-async function loadLessons(){lessons=await api("/api/lessons");renderLessons();refresh()}
-function renderLessons(){let me=null;try{me=JSON.parse(localStorage.getItem("eme_user")||"null")}catch{}$("lessonGrid").innerHTML=lessons.map(l=>`<div class="card lesson" onclick="openLesson(${l.id})"><h3>${l.free?"📖":"🔒"} ${l.title}</h3><p>${l.level} lesson</p><b class="${l.free?"free":"premium"}">${l.free?"FREE":"PREMIUM"}</b></div>`).join("")}
-function openAuth(m){mode=m;$("modal").classList.remove("hidden");$("authTitle").textContent=m==="login"?"Welcome back":"Create your free account";$("nameWrap").style.display=m==="login"?"none":"block";$("authSubmit").textContent=m==="login"?"Log in":"Create account";$("switchAuth").textContent=m==="login"?"New here? Click Create account above.":"Already have an account? Click Log in above."}
-function closeAuth(){$("modal").classList.add("hidden")}
-async function submitAuth(e){e.preventDefault();try{let d=await api(mode==="login"?"/api/login":"/api/register",{method:"POST",body:JSON.stringify({name:$("name").value,email:$("email").value,password:$("password").value})});token=d.token;localStorage.setItem("eme_token",token);localStorage.setItem("eme_user",JSON.stringify(d.user));closeAuth();toast("Welcome to English Made Easy!");refresh()}catch(e){toast(e.message)}}
-async function refresh(){if(!token){$("loginBtn").classList.remove("hidden");$("signupBtn").classList.remove("hidden");$("dashBtn").classList.add("hidden");$("logoutBtn").classList.add("hidden");return}try{let u=await api("/api/me");localStorage.setItem("eme_user",JSON.stringify(u));$("loginBtn").classList.add("hidden");$("signupBtn").classList.add("hidden");$("dashBtn").classList.remove("hidden");$("logoutBtn").classList.remove("hidden");let pct=Math.round((u.progress.length/lessons.length)*100);$("heroText").textContent="Welcome, "+u.name+"!";$("heroProgress").style.width=pct+"%";$("heroPercent").textContent=pct+"% complete";$("welcome").textContent="Welcome, "+u.name+".";$("dashProgress").style.width=pct+"%";$("dashPercent").textContent=pct+"% complete";$("plan").textContent="Plan: "+u.plan.toUpperCase()}catch{logout()}}
-async function openLesson(id){try{let l=await api("/api/lesson/"+id);$("lessonBody").innerHTML=`<div class="tag">LESSON ${l.id}</div><h2>${l.title}</h2><p class="lead">${l.content}</p><button class="btn primary" onclick="completeLesson(${l.id})">Mark as completed ✓</button>`;$("lessonModal").classList.remove("hidden")}catch(e){if(e.message.includes("Premium")){toast("This lesson requires Premium.");document.querySelector("#pricing").scrollIntoView({behavior:"smooth"})}else toast(e.message)}}
-function closeLesson(){$("lessonModal").classList.add("hidden")}
-async function completeLesson(id){try{let d=await api("/api/progress/"+id,{method:"POST"});toast("Lesson completed!");closeLesson();refresh()}catch(e){toast(e.message)}}
-function showDashboard(){$("dashboard").classList.remove("hidden");$("dashboard").scrollIntoView({behavior:"smooth"})}
-async function upgrade(plan="monthly"){if(!token){openAuth("signup");return}try{await api("/api/upgrade",{method:"POST",body:JSON.stringify({plan})});toast("Premium activated in demo mode.");refresh()}catch(e){toast(e.message)}}
-function logout(){token=null;localStorage.removeItem("eme_token");localStorage.removeItem("eme_user");refresh();toast("Logged out")}
+
+let token = localStorage.getItem("eme_token");
+let mode = "signup";
+let lessons = [];
+
+const $ = id => document.getElementById(id);
+
+function toast(x){
+
+  $("toast").textContent = x;
+
+  $("toast").style.display = "block";
+
+  setTimeout(
+    () => $("toast").style.display = "none",
+    2500
+  );
+}
+
+async function api(url,opt={}){
+
+  opt.headers = {
+    ...(opt.headers || {}),
+    ...(token ? {
+      Authorization:"Bearer " + token
+    } : {})
+  };
+
+  if(opt.body){
+    opt.headers["Content-Type"] = "application/json";
+  }
+
+  let r = await fetch(url,opt);
+
+  let d = await r.json();
+
+  if(!r.ok){
+    throw new Error(d.error || "Something went wrong");
+  }
+
+  return d;
+}
+
+async function loadLessons(){
+
+  try{
+
+    lessons = await api("/api/lessons");
+
+    renderLessons();
+
+    refresh();
+
+  }catch(e){
+
+    toast(e.message);
+
+  }
+}
+
+function renderLessons(){
+
+  let me = null;
+
+  try{
+    me = JSON.parse(
+      localStorage.getItem("eme_user") || "null"
+    );
+  }catch{}
+
+  $("lessonGrid").innerHTML = lessons.map(l => `
+
+    <div
+      class="card lesson"
+      onclick="openLesson(${l.id})">
+
+      <h3>
+        ${l.free ? "📖" : "🔒"} ${l.title}
+      </h3>
+
+      <p>${l.level} lesson</p>
+
+      <b class="${l.free ? "free" : "premium"}">
+        ${l.free ? "FREE" : "PREMIUM"}
+      </b>
+
+    </div>
+
+  `).join("");
+}
+
+function openAuth(m){
+
+  mode = m;
+
+  $("modal").classList.remove("hidden");
+
+  $("authTitle").textContent =
+    m === "login"
+      ? "Welcome back"
+      : "Create your free account";
+
+  $("nameWrap").style.display =
+    m === "login"
+      ? "none"
+      : "block";
+
+  $("authSubmit").textContent =
+    m === "login"
+      ? "Log in"
+      : "Create account";
+
+  $("switchAuth").textContent =
+    m === "login"
+      ? "New here? Click Create account above."
+      : "Already have an account? Click Log in above.";
+}
+
+function closeAuth(){
+
+  $("modal").classList.add("hidden");
+
+}
+
+async function submitAuth(e){
+
+  e.preventDefault();
+
+  try{
+
+    let d = await api(
+      mode === "login"
+        ? "/api/login"
+        : "/api/register",
+      {
+        method:"POST",
+
+        body:JSON.stringify({
+
+          name:$("name").value,
+
+          email:$("email").value,
+
+          password:$("password").value
+
+        })
+      }
+    );
+
+    token = d.token;
+
+    localStorage.setItem(
+      "eme_token",
+      token
+    );
+
+    localStorage.setItem(
+      "eme_user",
+      JSON.stringify(d.user)
+    );
+
+    closeAuth();
+
+    toast("Welcome to English Made Easy!");
+
+    refresh();
+
+  }catch(e){
+
+    toast(e.message);
+
+  }
+}
+
+async function refresh(){
+
+  if(!token){
+
+    $("loginBtn").classList.remove("hidden");
+
+    $("signupBtn").classList.remove("hidden");
+
+    $("dashBtn").classList.add("hidden");
+
+    $("logoutBtn").classList.add("hidden");
+
+    return;
+  }
+
+  try{
+
+    let u = await api("/api/me");
+
+    localStorage.setItem(
+      "eme_user",
+      JSON.stringify(u)
+    );
+
+    $("loginBtn").classList.add("hidden");
+
+    $("signupBtn").classList.add("hidden");
+
+    $("dashBtn").classList.remove("hidden");
+
+    $("logoutBtn").classList.remove("hidden");
+
+    let pct =
+      Math.round(
+        (u.progress.length / lessons.length) * 100
+      );
+
+    $("heroText").textContent =
+      "Welcome, " + u.name + "!";
+
+    $("heroProgress").style.width =
+      pct + "%";
+
+    $("heroPercent").textContent =
+      pct + "% complete";
+
+    $("welcome").textContent =
+      "Welcome, " + u.name + ".";
+
+    $("dashProgress").style.width =
+      pct + "%";
+
+    $("dashPercent").textContent =
+      pct + "% complete";
+
+    $("plan").textContent =
+      "Plan: " + u.plan.toUpperCase();
+
+  }catch{
+
+    logout();
+
+  }
+}
+
+async function openLesson(id){
+
+  try{
+
+    let l = await api(
+      "/api/lesson/" + id
+    );
+
+    $("lessonBody").innerHTML = `
+
+      <div class="tag">
+        LESSON ${l.id}
+      </div>
+
+      <h2>${l.title}</h2>
+
+      <p class="lead">
+        ${l.content}
+      </p>
+
+      <button
+        class="btn primary"
+        onclick="completeLesson(${l.id})">
+
+        Mark as completed ✓
+
+      </button>
+    `;
+
+    $("lessonModal").classList.remove("hidden");
+
+  }catch(e){
+
+    if(e.message.includes("Premium")){
+
+      toast("This lesson requires Premium.");
+
+      document
+        .querySelector("#pricing")
+        .scrollIntoView({
+          behavior:"smooth"
+        });
+
+    }else{
+
+      toast(e.message);
+
+    }
+  }
+}
+
+function closeLesson(){
+
+  $("lessonModal").classList.add("hidden");
+
+}
+
+async function completeLesson(id){
+
+  try{
+
+    let d = await api(
+      "/api/progress/" + id,
+      {
+        method:"POST"
+      }
+    );
+
+    toast("Lesson completed!");
+
+    closeLesson();
+
+    refresh();
+
+  }catch(e){
+
+    toast(e.message);
+
+  }
+}
+
+function showDashboard(){
+
+  $("dashboard").classList.remove("hidden");
+
+  $("dashboard").scrollIntoView({
+    behavior:"smooth"
+  });
+}
+
+async function upgrade(plan="monthly"){
+
+  if(!token){
+
+    openAuth("signup");
+
+    return;
+  }
+
+  try{
+
+    await api(
+      "/api/upgrade",
+      {
+        method:"POST",
+
+        body:JSON.stringify({
+          plan
+        })
+      }
+    );
+
+    toast("Premium activated in demo mode.");
+
+    refresh();
+
+  }catch(e){
+
+    toast(e.message);
+
+  }
+}
+
+function logout(){
+
+  token = null;
+
+  localStorage.removeItem("eme_token");
+
+  localStorage.removeItem("eme_user");
+
+  refresh();
+
+  toast("Logged out");
+}
+
 loadLessons();
-</script></body></html>
+
+</script>
+
+</body>
+  </html>
