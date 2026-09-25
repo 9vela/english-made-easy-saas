@@ -1,6 +1,6 @@
 {
   "name":"english-made-easy-saas",
-  "version":"3.0.0",
+  "version":"5.0.0",
   "private":true,
   "scripts":{"start":"node server.js"},
   "engines":{"node":">=20 <25"},
