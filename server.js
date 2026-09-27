@@ -164,7 +164,7 @@ function testDurationMinutes(levelOrder){return ({1:90,2:120,3:150,4:180}[Number
 async function init(){
   await pool.query(`
     CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY,name TEXT NOT NULL,email TEXT UNIQUE NOT NULL,password_hash TEXT NOT NULL,country VARCHAR(10) NOT NULL DEFAULT 'OTHER',premium_until TIMESTAMPTZ,created_at TIMESTAMPTZ DEFAULT NOW(),last_login_at TIMESTAMPTZ,active BOOLEAN NOT NULL DEFAULT TRUE);
-    ALTER TABLE users ADD COLUMN IF NOT EXISTS referral_code TEXT UNIQUE; ALTER TABLE users ADD COLUMN IF NOT EXISTS referred_by_user_id INT REFERENCES users(id) ON DELETE SET NULL; ALTER TABLE users ADD COLUMN IF NOT EXISTS last_login_at TIMESTAMPTZ; ALTER TABLE users ADD COLUMN IF NOT EXISTS active BOOLEAN NOT NULL DEFAULT TRUE; ALTER TABLE courses ADD COLUMN IF NOT EXISTS active BOOLEAN DEFAULT TRUE; ALTER TABLE lessons ADD COLUMN IF NOT EXISTS free BOOLEAN DEFAULT FALSE; ALTER TABLE lessons ADD COLUMN IF NOT EXISTS pronunciation JSONB DEFAULT '[]'; ALTER TABLE tests ADD COLUMN IF NOT EXISTS required BOOLEAN DEFAULT TRUE;
+    ALTER TABLE users ADD COLUMN IF NOT EXISTS referral_code TEXT UNIQUE; ALTER TABLE users ADD COLUMN IF NOT EXISTS referred_by_user_id INT REFERENCES users(id) ON DELETE SET NULL; ALTER TABLE users ADD COLUMN IF NOT EXISTS last_login_at TIMESTAMPTZ; ALTER TABLE users ADD COLUMN IF NOT EXISTS active BOOLEAN NOT NULL DEFAULT TRUE;
     CREATE TABLE IF NOT EXISTS sessions(token TEXT PRIMARY KEY,user_id INT REFERENCES users(id) ON DELETE CASCADE,expires_at TIMESTAMPTZ NOT NULL);
     CREATE TABLE IF NOT EXISTS courses(id SERIAL PRIMARY KEY,slug TEXT UNIQUE NOT NULL,title TEXT NOT NULL,description TEXT,level_order INT NOT NULL,active BOOLEAN DEFAULT TRUE);
     CREATE TABLE IF NOT EXISTS lessons(id SERIAL PRIMARY KEY,course_id INT REFERENCES courses(id) ON DELETE CASCADE,title TEXT NOT NULL,content TEXT NOT NULL,free BOOLEAN DEFAULT FALSE,lesson_order INT NOT NULL,pronunciation JSONB DEFAULT '[]',UNIQUE(course_id,lesson_order));
@@ -202,7 +202,35 @@ app.get('/api/countries',(_,r)=>r.json(COUNTRIES.map(x=>({code:x[0],name:x[1]}))
 app.get('/api/pricing',async(req,res)=>{const c=String(req.query.country||'OTHER').toUpperCase();const x=(await pool.query('SELECT * FROM pricing WHERE country_code=$1 AND active=true',[c])).rows[0]||(await pool.query("SELECT * FROM pricing WHERE country_code='OTHER'")).rows[0]; const uid=req.query.userId?+req.query.userId:0; let discount=0; if(uid){const r=(await pool.query('SELECT discount_percent FROM referral_rewards WHERE user_id=$1 AND used=false ORDER BY id LIMIT 1',[uid])).rows[0]; if(r) discount=+r.discount_percent;} const plan=(amount,days)=>{const original=+amount;const final=+(original*(1-discount/100)).toFixed(2);return {amount:final,original,discountPercent:discount,display:fmt(x.currency,final),originalDisplay:fmt(x.currency,original),days};}; res.json({country:x.country_name,currency:x.currency,discountPercent:discount,certificateFee:fmt(x.currency,Number(x.certificate_fee||0)),plans:{weekly:plan(x.weekly,7),monthly:plan(x.monthly,30),annual:plan(x.annual,365)}});});
 
 app.post('/api/register',async(req,res)=>{try{const {name,email,password,country,referralCode}=req.body||{};if(!name||!email||!password||String(password).length<6)return res.status(400).json({error:'Name, email and password (6+ characters) are required.'});const c=String(country||'OTHER').toUpperCase();const exists=await pool.query('SELECT id FROM users WHERE email=$1',[String(email).trim().toLowerCase()]);if(exists.rows[0])return res.status(409).json({error:'Email already registered.'});let referrerId=null; if(referralCode){const rr=(await pool.query('SELECT id FROM users WHERE referral_code=$1',[String(referralCode).trim().toUpperCase()])).rows[0]; if(rr) referrerId=rr.id;} const newReferralCode='EME-'+crypto.randomBytes(4).toString('hex').toUpperCase(); const u=(await pool.query('INSERT INTO users(name,email,password_hash,country,referral_code,referred_by_user_id,last_login_at,active) VALUES($1,$2,$3,$4,$5,$6,NOW(),TRUE) RETURNING id,name,email,country,referral_code,active',[String(name).trim(),String(email).trim().toLowerCase(),hashPassword(password),c,newReferralCode,referrerId])).rows[0];u.first_last_name=firstLastName(u.name); if(referrerId){const cnt=+(await pool.query('SELECT COUNT(*)::int n FROM users WHERE referred_by_user_id=$1',[referrerId])).rows[0].n; if(cnt%5===0) await pool.query('INSERT INTO referral_rewards(user_id,referral_count,discount_percent) VALUES($1,$2,5) ON CONFLICT DO NOTHING',[referrerId,cnt]);}const t=token();await pool.query('INSERT INTO sessions(token,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL \'30 days\')',[t,u.id]);res.json({token:t,user:u});}catch(e){console.error(e);res.status(500).json({error:'Could not create account.'});}});
-app.post('/api/login',async(req,res)=>{try{const {email,password}=req.body||{};const loginEmail=String(email||'').trim().toLowerCase();const loginPassword=String(password||'');if(ADMIN_EMAIL&&ADMIN_PASSWORD&&loginEmail===ADMIN_EMAIL&&loginPassword===ADMIN_PASSWORD)return res.json({admin:true});const u=(await pool.query('SELECT id,name,email,country,premium_until,password_hash,referral_code FROM users WHERE email=$1',[loginEmail])).rows[0];if(!u||hashPassword(loginPassword)!==u.password_hash)return res.status(401).json({error:'Email or password is incorrect.'});const t=token();await pool.query('INSERT INTO sessions(token,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL \'30 days\')',[t,u.id]);delete u.password_hash;u.first_last_name=firstLastName(u.name);res.json({token:t,user:u});}catch(e){console.error(e);res.status(500).json({error:'Login failed.'});}});
+app.post('/api/login',async(req,res)=>{try{
+  const {email,password}=req.body||{};
+  const loginEmail=String(email||'').trim().toLowerCase();
+  const loginPassword=String(password||'');
+  if(ADMIN_EMAIL&&ADMIN_PASSWORD&&loginEmail===ADMIN_EMAIL&&loginPassword===ADMIN_PASSWORD)return res.json({admin:true});
+
+  const q=await pool.query(
+    'SELECT id,name,email,country,premium_until,password_hash,referral_code,active FROM users WHERE LOWER(email)=LOWER($1) LIMIT 1',
+    [loginEmail]
+  );
+  const u=q.rows[0];
+  if(!u||hashPassword(loginPassword)!==u.password_hash)
+    return res.status(401).json({error:'Email or password is incorrect.'});
+  if(u.active===false)
+    return res.status(403).json({error:'This account is inactive. Please contact the administrator.'});
+
+  const t=token();
+  await pool.query('DELETE FROM sessions WHERE user_id=$1 AND expires_at<=NOW()',[u.id]);
+  await pool.query('INSERT INTO sessions(token,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL \'30 days\')',[t,u.id]);
+  await pool.query('UPDATE users SET last_login_at=NOW() WHERE id=$1',[u.id]);
+
+  delete u.password_hash;
+  delete u.active;
+  u.first_last_name=firstLastName(u.name);
+  res.json({token:t,user:u});
+}catch(e){
+  console.error('LOGIN ERROR:',e);
+  res.status(500).json({error:'Login failed. Please try again.'});
+}});
 app.post('/api/logout',auth,async(req,res)=>{await pool.query('DELETE FROM sessions WHERE token=$1',[req.token]);res.json({ok:true});});
 
 app.get('/api/me',auth,async(req,res)=>{const courses=await pool.query(`SELECT c.*,COUNT(DISTINCT l.id)::int lessons,COUNT(DISTINCT p.lesson_id)::int completed FROM courses c LEFT JOIN lessons l ON l.course_id=c.id LEFT JOIN progress p ON p.lesson_id=l.id AND p.user_id=$1 WHERE c.active GROUP BY c.id ORDER BY c.level_order`,[req.user.id]);const attempts=await pool.query(`SELECT t.slug,t.title,a.score,a.passed,a.created_at FROM test_attempts a JOIN tests t ON t.id=a.test_id WHERE a.user_id=$1 ORDER BY a.created_at DESC`,[req.user.id]);const cert=await pool.query('SELECT c.slug,c.title,x.certificate_code,x.issued_at FROM certificates x JOIN courses c ON c.id=x.course_id WHERE x.user_id=$1 ORDER BY c.level_order',[req.user.id]);const refCount=+(await pool.query('SELECT COUNT(*)::int n FROM users WHERE referred_by_user_id=$1',[req.user.id])).rows[0].n; const reward=(await pool.query('SELECT id,discount_percent FROM referral_rewards WHERE user_id=$1 AND used=false ORDER BY id LIMIT 1',[req.user.id])).rows[0]||null; const displayName=String(req.user.name||'Student').trim(); const firstName=displayName.split(/\s+/)[0]||'Student'; const firstLast=firstLastName(displayName); res.json({user:{id:req.user.id,name:displayName,display_name:displayName,first_name:firstName,first_last_name:firstLast,email:req.user.email,country:req.user.country,referral_code:req.user.referral_code,referral_count:refCount,referral_goal:5,discount_available:!!reward,discount_percent:reward?+reward.discount_percent:0,premium:!!req.user.premium_until&&new Date(req.user.premium_until)>new Date(),premium_until:req.user.premium_until},courses:courses.rows,tests:attempts.rows,certificates:cert.rows});});
