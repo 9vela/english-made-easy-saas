@@ -61,14 +61,14 @@ main{max-width:1200px;margin:auto;padding:18px}.hero{border-radius:28px;backgrou
 <div id="feedback" class="feedback hidden"><div class="feedback-card"><div class="feedback-head"><h3 id="feedbackTitle">Practice</h3><button onclick="closeFeedback()">Close</button></div><div id="feedbackBody" class="feedback-body"></div></div></div>
 
 <script>
-const $=id=>document.getElementById(id);let me=null,courses=[],englishVoices=[];let token=localStorage.getItem('eme_token')||'';
-async function api(path,opts={}){opts.headers={...(opts.headers||{}),'Content-Type':'application/json',...(token?{'Authorization':'Bearer '+token}:{})};const r=await fetch(path,opts);let d={};try{d=await r.json()}catch{}if(!r.ok)throw new Error(d.error||d.message||'Request failed');return d}
+const $=id=>document.getElementById(id);let me=null,courses=[],englishVoices=[];
+async function api(path,opts={}){opts.headers={...(opts.headers||{}),'Content-Type':'application/json'};const r=await fetch(path,opts);let d={};try{d=await r.json()}catch{}if(!r.ok)throw new Error(d.error||d.message||'Request failed');return d}
 function openModal(x){$('modalContent').innerHTML=x;$('modal').classList.remove('hidden')}function closeModal(){$('modal').classList.add('hidden')}
 function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
 function escapeAttr(s){return escapeHtml(s)}
 function refreshVoices(){if('speechSynthesis' in window)englishVoices=speechSynthesis.getVoices().filter(v=>/^en(-|_)/i.test(v.lang))}
 if('speechSynthesis' in window){refreshVoices();speechSynthesis.onvoiceschanged=()=>setTimeout(refreshVoices,80)}
-let lastListenKey='',lastListenAt=0,listenTimer=null,listenRunId=0;
+let lastListenKey='',lastListenAt=0,listenTimer=null;
 function closeFeedback(){$('feedback').classList.add('hidden');$('feedbackBody').innerHTML=''}
 function showFeedback(title,body,closeLabel='Close'){$('feedbackTitle').textContent=title;$('feedbackBody').innerHTML=body;$('feedback').classList.remove('hidden');$('feedback').querySelector('.feedback-head button').textContent=closeLabel}
 function showListenCard(text){showFeedback('🔊 Listen','<div class="feedback-icon">🎧</div><h3>A ouvir em inglês</h3><p>Ouça com atenção. O áudio será reproduzido uma única vez.</p><div class="feedback-progress"><span></span></div>')}
@@ -76,28 +76,25 @@ function listen(text){
   const phrase=String(text||'').trim();
   if(!phrase)return;
   const now=Date.now(),key=phrase.toLowerCase();
-  if(key===lastListenKey && now-lastListenAt<1600)return;
+  if(key===lastListenKey && now-lastListenAt<900)return;
   lastListenKey=key;lastListenAt=now;
-  if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined'){showFeedback('🔊 Listen','<div class="feedback-icon">⚠️</div><h3>Áudio indisponível</h3><p>O navegador não disponibilizou a voz inglesa. Verifique o Text-to-Speech do Android e tente novamente.</p>');return}
-  showListenCard(phrase);
-  const synth=window.speechSynthesis;
-  const runId=++listenRunId;
-  if(listenTimer)clearTimeout(listenTimer);
-  const start=()=>{
-    if(runId!==listenRunId)return;
-    refreshVoices();
-    synth.cancel();
-    const u=new SpeechSynthesisUtterance(phrase);u.lang='en-US';u.rate=.76;u.pitch=1;u.volume=1;
-    const v=englishVoices.find(x=>/^en-US$/i.test(x.lang))||englishVoices.find(x=>/^en-GB$/i.test(x.lang))||englishVoices[0];
-    if(v)u.voice=v;
-    u.onend=()=>{if($('feedbackTitle').textContent.includes('Listen'))showFeedback('✅ Listen','<div class="feedback-icon">🎧</div><h3>Áudio concluído</h3><p>Agora tente dizer a mesma palavra usando <b>Practice</b>.</p>')};
-    u.onerror=()=>showFeedback('⚠️ Listen','<div class="feedback-icon">🔇</div><h3>Não foi possível reproduzir</h3><p>Verifique o volume de mídia e a voz inglesa do Android.</p>');
-    u.onstart=()=>{if(runId!==listenRunId){try{synth.cancel()}catch{}}};
-    synth.speak(u);
-  };
-  if(englishVoices.length)listenTimer=setTimeout(start,100);else{
-    let tries=0;const wait=setInterval(()=>{refreshVoices();tries++;if(englishVoices.length||tries>=12){clearInterval(wait);if(englishVoices.length)listenTimer=setTimeout(start,100);else showFeedback('⚠️ Listen','<div class="feedback-icon">🔇</div><h3>Voz inglesa não encontrada</h3><p>Ative uma voz inglesa no Text-to-Speech do Android e tente novamente.</p>')}},120);
+  if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined'){
+    showFeedback('🔊 Listen','<div class="feedback-icon">⚠️</div><h3>Áudio indisponível</h3><p>O Chrome/Android não disponibilizou a voz. Ative o serviço Text-to-Speech do Android e tente novamente.</p>');return;
   }
+  const synth=window.speechSynthesis;
+  try{synth.cancel();}catch{}
+  const u=new SpeechSynthesisUtterance(phrase);
+  u.lang='en-US';u.rate=.78;u.pitch=1;u.volume=1;
+  refreshVoices();
+  const v=englishVoices.find(x=>/^en-US$/i.test(x.lang))||englishVoices.find(x=>/^en-GB$/i.test(x.lang))||englishVoices.find(x=>/^en/i.test(x.lang));
+  if(v)u.voice=v;
+  u.onstart=()=>showListenCard(phrase);
+  u.onend=()=>{if(!$('feedback').classList.contains('hidden'))showFeedback('✅ Listen','<div class="feedback-icon">🎧</div><h3>Áudio concluído</h3><p>Agora tente dizer a mesma palavra usando <b>Practice</b>.</p>')};
+  u.onerror=()=>{
+    showFeedback('⚠️ Listen','<div class="feedback-icon">🔇</div><h3>A voz do Android não respondeu</h3><p>Abra as definições do telefone e verifique <b>Text-to-Speech / Síntese de fala</b>. Depois volte ao curso.</p>');
+  };
+  // Speak immediately from the button tap; delaying it can make Android/Chrome block the audio.
+  try{synth.speak(u);if(typeof synth.resume==='function')synth.resume();}catch(e){u.onerror();}
 }
 function normalizeSpeech(s){return String(s||'').toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim()}
 function speechSimilarity(a,b){a=normalizeSpeech(a);b=normalizeSpeech(b);if(!a||!b)return 0;if(a===b)return 1;const A=a.split(' '),B=b.split(' ');const common=A.filter(x=>B.includes(x)).length;const token=Math.max(common/Math.max(A.length,B.length),common/Math.min(A.length,B.length));const m=A.length,n=B.length,dp=Array.from({length:m+1},()=>Array(n+1).fill(0));for(let i=0;i<=m;i++)dp[i][0]=i;for(let j=0;j<=n;j++)dp[0][j]=j;for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+(A[i-1]===B[j-1]?0:1));const edit=1-dp[m][n]/Math.max(m,n);return Math.max(token,edit)}
@@ -106,11 +103,11 @@ async function practiceSpeech(phrase,lessonId,btn){
   if(!SR){showFeedback('🎙️ Practice','<div class="feedback-icon">⚠️</div><h3>Microfone não disponível</h3><p>Use o Google Chrome no Android e permita o acesso ao microfone.</p>');return}
   if(btn.dataset.busy==='1')return;
   btn.dataset.busy='1';btn.disabled=true;btn.textContent='🎙️ Ouvindo...';
-  showFeedback('🎙️ Practice','<div class="feedback-icon">🎙️</div><h3>Fale agora</h3><p>Diga a palavra uma vez, em inglês, e pare. O sistema vai analisar o que ouviu.</p><div class="feedback-progress"><span></span></div>');
+  showFeedback('🎙️ Practice','<div class="feedback-icon">🎙️</div><h3>Fale agora</h3><p>Diga a palavra em inglês. Pare de falar depois de dizê-la.</p><div class="feedback-progress"><span></span></div>');
   const rec=new SR();let finished=false,gotResult=false;rec.lang='en-US';rec.interimResults=false;rec.continuous=false;rec.maxAlternatives=3;
   const finishButton=()=>{btn.dataset.busy='';btn.disabled=false;btn.textContent='🎙️ Practice'};
   const showError=(title,msg)=>{finishButton();showFeedback(title,'<div class="feedback-icon">⚠️</div><h3>'+title+'</h3><p>'+msg+'</p>')};
-  const timer=setTimeout(()=>{if(!finished){finished=true;try{rec.abort()}catch{}showError('Tempo esgotado','Não ouvi uma resposta clara. Toque em Practice e tente novamente.')}},5500);
+  const timer=setTimeout(()=>{if(!finished){finished=true;try{rec.stop()}catch{}showError('Tempo esgotado','Não ouvi uma resposta clara. Toque em Practice e tente novamente.')}},7000);
   rec.onresult=async e=>{
     if(finished)return;gotResult=true;finished=true;clearTimeout(timer);try{rec.stop()}catch{};
     const text=e.results?.[0]?.[0]?.transcript||'';showFeedback('⏳ Practice','<div class="feedback-icon">🧠</div><h3>A analisar...</h3><p>Comparamos o que o navegador reconheceu com a palavra-alvo.</p>');
@@ -127,20 +124,27 @@ async function practiceSpeech(phrase,lessonId,btn){
 }
 function openLogin(){openModal(`<h2>Welcome back!</h2><form class="form" onsubmit="login(event)"><input id="email" type="email" placeholder="Email" required><input id="password" type="password" placeholder="Password" required><label><input type="checkbox"> Remember me</label><button class="primary">Log in</button><button type="button" class="ghost" onclick="openRegister()">Create account</button><p id="authMsg" class="muted"></p></form>`)}
 function openRegister(){openModal(`<h2>Create your account</h2><form class="form" onsubmit="register(event)"><input id="name" placeholder="Full name" required><input id="regEmail" type="email" placeholder="Email" required><input id="regPassword" type="password" placeholder="Password" required><select id="country"><option value="MZ">Mozambique</option><option value="ZA">South Africa</option><option value="AO">Angola</option><option value="PT">Portugal</option><option value="US">United States</option></select><button class="primary">Create account</button><button type="button" class="ghost" onclick="openLogin()">I already have an account</button><p id="authMsg" class="muted"></p></form>`)}
-async function login(e){e.preventDefault();try{const d=await api('/api/login',{method:'POST',body:JSON.stringify({email:$('email').value,password:$('password').value})});me=d;token=d.token||'';if(token)localStorage.setItem('eme_token',token);localStorage.setItem('eme_user',JSON.stringify(d));closeModal();await boot()}catch(err){$('authMsg').textContent=err.message}}
-async function register(e){e.preventDefault();try{const d=await api('/api/register',{method:'POST',body:JSON.stringify({name:$('name').value,email:$('regEmail').value,password:$('regPassword').value,country:$('country').value})});me=d;token=d.token||'';if(token)localStorage.setItem('eme_token',token);localStorage.setItem('eme_user',JSON.stringify(d));closeModal();await boot()}catch(err){$('authMsg').textContent=err.message}}
-async function logout(){try{await api('/api/logout',{method:'POST'})}catch{}localStorage.removeItem('eme_user');localStorage.removeItem('eme_token');token='';me=null;location.reload()}
+async function login(e){e.preventDefault();try{const d=await api('/api/login',{method:'POST',body:JSON.stringify({email:$('email').value,password:$('password').value})});me=d;localStorage.setItem('eme_user',JSON.stringify(d));closeModal();await boot()}catch(err){$('authMsg').textContent=err.message}}
+async function register(e){e.preventDefault();try{const d=await api('/api/register',{method:'POST',body:JSON.stringify({name:$('name').value,email:$('regEmail').value,password:$('regPassword').value,country:$('country').value})});me=d;localStorage.setItem('eme_user',JSON.stringify(d));closeModal();await boot()}catch(err){$('authMsg').textContent=err.message}}
+async function logout(){try{await api('/api/logout',{method:'POST'})}catch{}localStorage.removeItem('eme_user');me=null;location.reload()}
 async function boot(){
-  const saved=localStorage.getItem('eme_user');if(!me&&saved){try{me=JSON.parse(saved)}catch{}}if(!token&&me?.token){token=me.token;localStorage.setItem('eme_token',token)}
+  const saved=localStorage.getItem('eme_user');if(!me&&saved){try{me=JSON.parse(saved)}catch{}}
   if(!me){$('landing').classList.remove('hidden');$('app').classList.add('hidden');return}
   $('landing').classList.add('hidden');$('app').classList.remove('hidden');$('loginBtn').classList.add('hidden');$('registerBtn').classList.add('hidden');$('logoutBtn').classList.remove('hidden');$('dashBtn').classList.remove('hidden');
   $('welcomeName').textContent=me.user?.name||me.name||'Student';$('railName').textContent=me.user?.name||me.name||'Student';$('railAvatar').textContent=(me.user?.name||me.name||'S').charAt(0).toUpperCase();$('countryBadge').textContent=me.user?.country||me.country||'MZ';
   try{const d=await api('/api/courses');courses=d.courses||d;renderCourses();}catch(e){$('courses').innerHTML='<div class="card error">Não foi possível carregar os cursos.</div>'}
   try{const p=await api('/api/me');me={...me,...p};localStorage.setItem('eme_user',JSON.stringify(me));renderProgress();renderCertificates();loadPlans()}catch{}
 }
-function renderProgress(){const pct=me.progress?.overall??me.overallProgress??0;$('overallBar').style.width=pct+'%';$('overallTextTop').textContent=pct+'%';$('overallText').textContent=pct+'% complete'}
+function renderProgress(){
+  const list=Array.isArray(me?.courses)?me.courses:[];
+  const total=list.reduce((n,c)=>n+Number(c.lessons||0),0);
+  const completed=list.reduce((n,c)=>n+Number(c.completed||0),0);
+  const pct=total?Math.round((completed/total)*100):0;
+  $('overallBar').style.width=pct+'%';$('overallTextTop').textContent=pct+'%';$('overallText').textContent=pct+'% complete';
+  list.forEach(c=>{const el=document.querySelector('[data-course-progress="'+c.id+'"]');if(el){const cp=c.lessons?Math.round((Number(c.completed||0)/Number(c.lessons))*100):0;el.textContent=cp+'%';el.style.width=cp+'%'}});
+}
 function renderCourses(){
-  const list=courses.map((c,i)=>{const cls='level'+((c.level_order||i+1));const tests=(c.tests||[]).length;const img=c.level_order===3?'/professional_person.jpg':c.level_order===4?'/advanced_visual.jpg':'/practical_visual.jpg';return `<div class="card course ${cls}"><div class="course-img"><img src="${img}" alt="Level ${c.level_order} English"></div><span class="tag">LEVEL ${c.level_order}</span><h2>${escapeHtml(c.title)}</h2><p class="muted">${escapeHtml(c.description||'')}</p><div class="meta"><div><b>${c.lessons||0}</b>Chapters</div><div><b>${tests}</b>Tests</div><div><b>🎧</b>Listen</div><div><b>🎙️</b>Speak</div></div><div class="row" style="margin-top:10px"><button class="primary" onclick="openCourse(${c.id})">Open course</button></div></div>`}).join('');
+  const list=courses.map((c,i)=>{const cls='level'+((c.level_order||i+1));const tests=(c.tests||[]).length;const img=c.level_order===3?'/professional_person.jpg':c.level_order===4?'/advanced_visual.jpg':'/practical_visual.jpg';return `<div class="card course ${cls}"><div class="course-img"><img src="${img}" alt="Level ${c.level_order} English"></div><span class="tag">LEVEL ${c.level_order}</span><h2>${escapeHtml(c.title)}</h2><p class="muted">${escapeHtml(c.description||'')}</p><div class="meta"><div><b>${c.lessons||0}</b>Chapters</div><div><b>${tests}</b>Tests</div><div><b>🎧</b>Listen</div><div><b>🎙️</b>Speak</div></div><div class="course-progress"><div class="row" style="justify-content:space-between"><small>Progress</small><b class="course-pct">${c.lessons?Math.round((Number(c.completed||0)/Number(c.lessons))*100):0}%</b></div><div class="progress"><div class="bar" data-course-progress="${c.id}" style="width:${c.lessons?Math.round((Number(c.completed||0)/Number(c.lessons))*100):0}%"></div></div></div><div class="row" style="margin-top:10px"><button class="primary" onclick="openCourse(${c.id})">Open course</button></div></div>`}).join('');
   $('courses').innerHTML='<div class="section-title"><h2>🚀 Your Learning Journey</h2><p>Complete each level step by step.</p></div><div class="grid">'+list+'</div>'
 }
 async function openCourse(id){try{const d=await api('/api/lessons/'+id);const ls=d.lessons||d;openModal(`<h2>📚 Course chapters</h2><div>${ls.map(l=>`<div class="lesson"><div><b>${l.lesson_order}. ${escapeHtml(l.title)}</b><br><small class="muted">${l.free?'FREE':'PREMIUM'} • ${l.completed?'Completed':'Not completed'}</small></div><button class="${l.locked?'secondary':'primary'}" ${l.locked?'disabled':''} onclick="openLesson(${l.id})">${l.locked?'🔒 Premium':l.completed?'Review':'Study'}</button></div>`).join('')}</div>`)}catch(e){alert(e.message)}}
