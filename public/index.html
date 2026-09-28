@@ -87,6 +87,90 @@ body.landing-mode .nav-actions{margin-left:auto}
 .detail-card h3{margin-top:0;color:#123b78}.detail-list{display:grid;gap:10px;margin:14px 0}.detail-list div{padding:12px 14px;border-radius:13px;background:#f4f7fc;border:1px solid #e4eaf5}
 @media(max-width:720px){.auth-modal-box{max-width:520px!important}.auth-layout{grid-template-columns:1fr}.auth-visual{min-height:190px;max-height:230px;order:-1}.auth-visual-copy{left:18px;right:18px;bottom:16px}.auth-visual-copy h3{font-size:22px}.auth-form-side{padding:24px 18px 20px}.auth-title{font-size:27px}.auth-brand img{width:54px;height:54px}}
 </style>
+
+<style>
+/* FINAL VISUAL PASS — cards, backgrounds and icons only. No auth/API logic changed. */
+:root{
+  --level-basic:#2f73df;
+  --level-practical:#20a66b;
+  --level-professional:#7447e8;
+  --level-advanced:#ee9b2f;
+}
+/* Clean dashboard icon controls */
+.dashboard-tools .icon-btn{font-size:0;position:relative;color:#2457b0;background:linear-gradient(145deg,#fff,#eef4ff);border:1px solid #d8e4f5}
+.dashboard-tools .icon-btn:before{display:block;font-size:22px;line-height:1}
+.dashboard-tools .icon-btn[title="Profile"]:before{content:'👤';filter:saturate(.9)}
+.dashboard-tools .icon-btn[title="Settings"]:before{content:'⚙️'}
+/* Level cards: full-image, colored identity, readable overlay, as in the agreed model */
+.course-card{padding:0!important;position:relative;overflow:hidden;border-radius:30px!important;background:#15213b!important;box-shadow:0 18px 42px rgba(25,45,90,.16)!important;min-height:690px;border:2px solid transparent!important}
+.course-card .course-image-frame{position:absolute;inset:0;height:auto!important;border:0!important;background:#15213b;z-index:0}
+.course-card .course-image{width:100%;height:100%;object-fit:cover;border-radius:0;margin:0;filter:saturate(1.05) contrast(1.02)}
+.course-card .course-image-frame:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,25,55,.10) 0%,rgba(12,25,55,.18) 24%,rgba(11,20,48,.60) 57%,rgba(8,16,40,.97) 100%)}
+.course-card .course-body{position:relative;z-index:1;min-height:690px;padding:26px 24px 22px!important;color:#fff;display:flex;flex-direction:column}
+.course-card .course-title{min-height:0;align-items:flex-start;gap:14px}
+.course-card .course-title>div:first-child{min-width:0}
+.course-card .course-title .tag{background:rgba(255,255,255,.94);color:#243b69;font-size:14px;padding:8px 13px}
+.course-card .course-title h2{font-size:34px;line-height:1.05;margin:18px 0 10px;color:#fff;max-width:540px;text-shadow:0 3px 18px rgba(0,0,0,.28)}
+.course-card .course-title .muted{color:rgba(255,255,255,.90);font-size:17px;line-height:1.55;max-width:590px;margin:0}
+.course-card .course-title>strong{background:rgba(255,255,255,.96);color:#17243d;border-radius:999px;padding:10px 14px;font-size:17px;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.course-card .progress{height:12px;background:rgba(255,255,255,.28);margin-top:20px;border:1px solid rgba(255,255,255,.25)}
+.course-card .bar{background:linear-gradient(90deg,#fff,rgba(255,255,255,.72))}
+.course-card .course-body>p{font-size:17px;margin:14px 0 16px;color:#fff}
+.course-card .course-body>.row{margin-bottom:4px}
+.course-card .course-body>.row .primary{background:#fff;color:#244f9e;font-weight:900;border-radius:16px;padding:13px 20px;box-shadow:0 8px 20px rgba(0,0,0,.13)}
+.course-card .course-body>.row .secondary{background:rgba(255,255,255,.88);color:#244f9e;font-weight:900;border-radius:16px}
+.course-card.level-basic{border-color:#4e9df3!important}
+.course-card.level-basic .course-image-frame:after{background:linear-gradient(180deg,rgba(10,76,145,.10),rgba(11,56,125,.52) 56%,rgba(7,29,74,.97))}
+.course-card.level-practical{border-color:#39bd83!important}
+.course-card.level-practical .course-image-frame:after{background:linear-gradient(180deg,rgba(7,91,58,.08),rgba(9,86,61,.48) 56%,rgba(5,43,37,.97))}
+.course-card.level-professional{border-color:#9a73ff!important}
+.course-card.level-professional .course-image-frame:after{background:linear-gradient(180deg,rgba(80,35,145,.10),rgba(61,33,113,.52) 56%,rgba(22,17,62,.98))}
+.course-card.level-advanced{border-color:#f3b85c!important}
+.course-card.level-advanced .course-image-frame:after{background:linear-gradient(180deg,rgba(164,88,8,.08),rgba(116,70,15,.48) 56%,rgba(49,30,14,.98))}
+/* Tests stay inside the level card, as a single light glass panel */
+.course-card .course-body>div[style*="margin-top:15px"]{margin-top:auto!important;padding:18px 14px 14px;border-radius:26px;background:rgba(247,250,255,.94);border:1px solid rgba(255,255,255,.72);box-shadow:0 14px 35px rgba(4,12,30,.22);color:#18233b}
+.course-card .course-body>div[style*="margin-top:15px"] h3{margin:0 8px 12px;color:#315dcc;font-size:25px}
+.course-card .course-body>div[style*="margin-top:15px"] .tests-row>.test-card{display:inline-flex;vertical-align:top;width:calc(33.333% - 9px);margin:0 8px 0 0!important;min-height:174px;padding:18px 12px!important;border-left:5px solid var(--level-professional);border-radius:22px;background:rgba(255,255,255,.86);box-shadow:0 7px 18px rgba(35,60,110,.07);flex-direction:column;align-items:flex-start;justify-content:space-between}
+.course-card .course-body>div[style*="margin-top:15px"] .tests-row>.test-card:last-child{margin-right:0!important}
+.course-card .test-card b{font-size:16px;line-height:1.25;color:#18233b}
+.course-card .test-card p{font-size:14px;margin:8px 0;color:#748096}
+.course-card .test-card button{font-size:13px;padding:10px 12px;background:#eaf0ff;color:#315d9f;font-weight:800;border-radius:13px;width:100%}
+.course-card.level-basic .test-card{border-left-color:var(--level-basic)}
+.course-card.level-practical .test-card{border-left-color:var(--level-practical)}
+.course-card.level-professional .test-card{border-left-color:var(--level-professional)}
+.course-card.level-advanced .test-card{border-left-color:var(--level-advanced)}
+.course-card.locked{opacity:1!important}
+.course-card.locked .course-image{filter:saturate(.72) brightness(.78)}
+/* Bottom support cards: certificates and payment get their own visual identity */
+.support-cards{gap:16px;margin-top:22px}
+.support-card{min-height:145px!important;padding:22px!important;border-radius:26px!important;justify-content:flex-start!important;background:linear-gradient(145deg,#fff,#edf4ff)!important;border:1px solid #d4e1f4!important;box-shadow:0 14px 34px rgba(30,55,110,.10)!important}
+.support-card:before{content:'';width:54px;height:54px;border-radius:18px;display:grid;place-items:center;margin-bottom:13px;background:#e7efff;box-shadow:inset 0 0 0 1px rgba(49,93,204,.10)}
+.support-card:nth-child(1):before{content:'🏆';font-size:27px;background:linear-gradient(145deg,#fff3bd,#ffe49a)}
+.support-card:nth-child(2):before{content:'💳';font-size:25px;background:linear-gradient(145deg,#dff4ff,#cbe7ff)}
+.support-card h3{font-size:22px!important;color:#173f78!important;margin:0 0 7px!important}
+.support-card p{font-size:14px!important;line-height:1.45!important;margin:0!important}
+/* Modal tiles: cleaner icon + price hierarchy */
+.compact-tile{min-height:158px!important;border-radius:22px!important;padding:16px!important;background:linear-gradient(145deg,#fff,#f0f5ff)!important;box-shadow:0 10px 25px rgba(30,55,110,.08)!important}
+.compact-tile strong{font-size:18px!important}
+.compact-tile .tile-price{font-size:24px!important}
+.compact-tile button{border-radius:13px!important}
+@media(max-width:720px){
+  .course-card{min-height:760px}
+  .course-card .course-body{min-height:760px;padding:22px 17px 16px!important}
+  .course-card .course-title h2{font-size:31px}
+  .course-card .course-title .muted{font-size:16px;line-height:1.48}
+  .course-card .course-title>strong{font-size:15px;padding:9px 12px}
+  .course-card .course-body>div[style*="margin-top:15px"]{padding:15px 9px 10px;border-radius:24px}
+  .course-card .course-body>div[style*="margin-top:15px"] h3{font-size:23px;margin-left:5px}
+  .course-card .course-body>div[style*="margin-top:15px"] .tests-row>.test-card{width:calc(33.333% - 7px);margin-right:5px!important;min-height:174px;padding:14px 9px!important;border-radius:18px}
+  .course-card .test-card b{font-size:14px}
+  .course-card .test-card p{font-size:13px}
+  .course-card .test-card button{font-size:12px;padding:9px 5px}
+  .support-card{min-height:132px!important;padding:17px!important}
+  .support-card h3{font-size:18px!important}
+  .support-card p{font-size:12px!important}
+}
+</style>
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
@@ -132,7 +216,7 @@ body.landing-mode .nav-actions{margin-left:auto}
       <div class="learning-heading"><div><div class="eyebrow">YOUR LEARNING PATH</div><h2>Learn at your own pace</h2></div><span class="tag">4 levels</span></div>
       <div id="courses" class="course-grid"></div>
     </div>
-  <div class="support-cards"><div class="support-card" onclick="openCertificatesPanel()"><h3>🏆 Certificates</h3><p>Tap to open your certificates in compact cards.</p></div><div class="support-card" onclick="openPlansPanel()"><h3>💳 Plans & payment</h3><p>Tap to open country prices in compact cards.</p></div></div>
+  <div class="support-cards"><div class="support-card support-certificates" onclick="openCertificatesPanel()"><h3>Certificates</h3><p>Open your certificates in clean, compact cards.</p></div><div class="support-card support-plans" onclick="openPlansPanel()"><h3>Plans & payment</h3><p>View country prices and Premium options.</p></div></div>
   <div id="plans" class="hidden"><div id="planGrid"></div></div>
   <div id="certificates" class="hidden"></div>
   <div id="adminArea" class="card hidden"><h2>🔐 Administrator</h2><p class="muted">Only the site owner should use this area.</p><button class="secondary" onclick="openAdmin()">Open admin area</button></div>
@@ -158,7 +242,7 @@ function renderReferral(){const u=me.user;const pct=Math.min(100,Math.round((u.r
 function referralLink(){return location.origin+'/?ref='+encodeURIComponent(me.user.referral_code||'')}
 async function copyReferral(){const link=referralLink();try{await navigator.clipboard.writeText(link);alert('Referral link copied!')}catch(e){alert(link)}}
 async function shareReferral(){const link=referralLink();try{await api('/api/share',{method:'POST',body:JSON.stringify({lessonId:null})})}catch(e){}if(navigator.share){navigator.share({title:'English Made Easy',text:'Join English Made Easy with me! Create your account here:',url:link}).catch(()=>{})}else{copyReferral()}}
-function renderCourses(){let html='';const imgs={basic:'/level-basic.jpg',practical:'/level-practical.jpg',professional:'/level-professional.jpg',advanced:'/level-advanced.jpg'};courses.forEach((c,i)=>{const pct=c.lessons?Math.round(c.completed/c.lessons*100):0;const slug=c.slug||'';html+=`<div class="course-card level-${escapeAttr(slug)} ${c.unlocked?'':'locked'}"><div class="course-image-frame"><img class="course-image" src="${imgs[slug]||'/hero-student.jpg'}" alt="${escapeAttr(c.title)}"></div><div class="course-body"><div class="course-title"><div><span class="tag">Level ${c.level_order}</span><h2>${c.badge||''} ${escapeHtml(c.title)}</h2><p class="muted">${escapeHtml(c.description||'')}</p></div><strong>${pct}%</strong></div><div class="progress"><div class="bar" style="width:${pct}%"></div></div><p><b>${c.completed}/${c.lessons}</b> chapters completed</p><div class="row"><button class="primary" onclick="openCourse(${c.id})" ${c.unlocked?'':'disabled'}>${c.unlocked?'Open course':'🔒 Locked'}</button>${c.slug==='basic'&&c.completed>=3?`<button class="secondary" onclick="openTest('basic-checkpoint')">📝 Checkpoint test</button>`:''}</div>`;if(c.tests.length){html+=`<div style="margin-top:15px"><h3>Tests</h3>`+c.tests.map((t,j)=>`<div class="test-card card"><b>${j+1}. ${escapeHtml(t.title)}</b><p class="muted">Pass: ${t.pass_score}%</p><button class="secondary" onclick="openTest('${t.slug}')" ${c.unlocked?'':'disabled'}>Open test</button></div>`).join('')+'</div>'}html+='</div></div>'});$('courses').innerHTML=html}function openProfileMenu(){openModal(`<h2>👤 My profile</h2><div class="detail-card"><h3>${escapeHtml(me.user.name)}</h3><p class="muted">${escapeHtml(me.user.email)}</p><div class="detail-list"><div>🌍 Country: <b>${escapeHtml(me.user.country||'Not selected')}</b></div><div>📈 Progress: <b>${$('overallText').textContent}</b></div><div>🎁 Referrals: <b>${escapeHtml((me.user.referral_count||0)+'/5')}</b></div></div></div><div class="row" style="margin-top:14px"><button class="primary" onclick="closeModal();openCertificatesPanel()">🏆 Certificates</button><button class="secondary" onclick="closeModal();openSettingsMenu()">⚙️ Settings</button></div>`)}
+function renderCourses(){let html='';const imgs={basic:'/level-basic.jpg',practical:'/level-practical.jpg',professional:'/level-professional.jpg',advanced:'/level-advanced.jpg'};courses.forEach((c,i)=>{const pct=c.lessons?Math.round(c.completed/c.lessons*100):0;const slug=c.slug||'';html+=`<div class="course-card level-${escapeAttr(slug)} ${c.unlocked?'':'locked'}"><div class="course-image-frame"><img class="course-image" src="${imgs[slug]||'/hero-student.jpg'}" alt="${escapeAttr(c.title)}"></div><div class="course-body"><div class="course-title"><div><span class="tag">Level ${c.level_order}</span><h2>${c.badge||''} ${escapeHtml(c.title)}</h2><p class="muted">${escapeHtml(c.description||'')}</p></div><strong>${pct}%</strong></div><div class="progress"><div class="bar" style="width:${pct}%"></div></div><p><b>${c.completed}/${c.lessons}</b> chapters completed</p><div class="row"><button class="primary" onclick="openCourse(${c.id})" ${c.unlocked?'':'disabled'}>${c.unlocked?'Open course':'🔒 Locked'}</button>${c.slug==='basic'&&c.completed>=3?`<button class="secondary" onclick="openTest('basic-checkpoint')">📝 Checkpoint test</button>`:''}</div>`;if(c.tests.length){html+=`<div class="tests-panel" style="margin-top:15px"><h3>Tests</h3><div class="tests-row">`+c.tests.map((t,j)=>`<div class="test-card card"><b>${j+1}. ${escapeHtml(t.title)}</b><p class="muted">Pass: ${t.pass_score}%</p><button class="secondary" onclick="openTest('${t.slug}')" ${c.unlocked?'':'disabled'}>Open test</button></div>`).join('')+'</div></div>'}html+='</div></div>'});$('courses').innerHTML=html}function openProfileMenu(){openModal(`<h2>👤 My profile</h2><div class="detail-card"><h3>${escapeHtml(me.user.name)}</h3><p class="muted">${escapeHtml(me.user.email)}</p><div class="detail-list"><div>🌍 Country: <b>${escapeHtml(me.user.country||'Not selected')}</b></div><div>📈 Progress: <b>${$('overallText').textContent}</b></div><div>🎁 Referrals: <b>${escapeHtml((me.user.referral_count||0)+'/5')}</b></div></div></div><div class="row" style="margin-top:14px"><button class="primary" onclick="closeModal();openCertificatesPanel()">🏆 Certificates</button><button class="secondary" onclick="closeModal();openSettingsMenu()">⚙️ Settings</button></div>`)}
 function openSettingsMenu(){openModal(`<h2>⚙️ Settings</h2><p class="muted">Manage the main options for your English Made Easy account.</p><div class="grid"><button class="secondary" onclick="closeModal();openPasswordInfo()">🔐 Security Center</button><button class="secondary" onclick="closeModal();openPlansPanel()">💳 Plans & payment</button><button class="secondary" onclick="closeModal();alert('Your account country is '+(me.user.country||'not selected')+'.')">🌍 Country & pricing</button><button class="secondary" onclick="closeModal();alert('Language selection is available on the public landing page. Course learning content remains in English.')">🌐 Language</button><button class="secondary" onclick="closeModal();openCertificatesPanel()">🏆 Certificates</button><button class="secondary" onclick="closeModal();alert('Your learning progress, tests and certificates are stored with your account.')">🔔 Account & learning</button></div><div class="row" style="margin-top:14px"><button class="danger" onclick="closeModal();logout()">🚪 Log out</button></div>`)}
 async function openPasswordInfo(){try{const d=await api('/api/security/summary');const events=(d.recentEvents||[]).slice(0,5).map(e=>`<div class="security-card security-event"><b>${escapeHtml(e.event_type.replace(/_/g,' '))}</b><span>${escapeHtml(e.details||'Security event')}</span><small>${new Date(e.created_at).toLocaleString()}</small></div>`).join('');openModal(`<h2>🛡️ Security Center</h2><p class="muted">Protect your English Made Easy account and control your active sessions.</p><div class="security-grid"><div class="security-card security-good"><b>🟢 Login protection</b><span>Authenticated sessions protect your learning data.</span></div><div class="security-card"><b>📱 Active sessions</b><span>${d.activeSessions} active session${d.activeSessions===1?'':'s'}</span></div><div class="security-card"><b>📧 Account email</b><span>${escapeHtml(me.user.email||'Not available')}</span></div><div class="security-card"><b>🌍 Country</b><span>${escapeHtml(me.user.country||'Not selected')}</span></div></div><div class="security-panel"><h3>🔑 Change password</h3><p class="muted">Use at least 8 characters. Other devices will be signed out after the change.</p><form class="form" onsubmit="changePassword(event)"><input id="currentPassword" type="password" placeholder="Current password" autocomplete="current-password" required><input id="newPassword" type="password" placeholder="New password (8+ characters)" autocomplete="new-password" minlength="8" required><input id="confirmPassword" type="password" placeholder="Confirm new password" autocomplete="new-password" minlength="8" required><button class="primary">Change password</button></form></div><h3>🧾 Recent security activity</h3><div class="security-grid">${events||'<div class="security-card"><span>No recent security events.</span></div>'}</div><div class="security-actions"><button class="danger" onclick="logoutAllSessions()">🚪 Sign out all devices</button><button class="ghost" onclick="closeModal()">Close</button></div>`)}catch(e){alert(e.message)}}
 async function changePassword(e){e.preventDefault();const currentPassword=$('currentPassword').value,newPassword=$('newPassword').value,confirmPassword=$('confirmPassword').value;if(newPassword!==confirmPassword){alert('New passwords do not match.');return}try{const d=await api('/api/security/change-password',{method:'POST',body:JSON.stringify({currentPassword,newPassword})});alert(d.message||'Password changed successfully.');closeModal();await boot()}catch(err){alert(err.message)}}
