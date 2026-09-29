@@ -774,6 +774,125 @@ body.landing-mode .landing-lang{
 }
 </style>
 
+
+<style id="v25-visual-fix">
+/* V25 — final visual alignment requested after V24.
+   Visual-only: course/auth/test/progress/backend logic is unchanged. */
+
+/* 1. PERSONAL LEARNING HUB: use the same Basic English image as the level card,
+      with the whole card filled and a readable gradient over the image. */
+#app .dashboard-hero{
+  position:relative !important;
+  overflow:hidden !important;
+  isolation:isolate !important;
+  min-height:300px !important;
+  padding:28px !important;
+  border-radius:28px !important;
+  color:#fff !important;
+  background:#173d76 url('/level-basic.jpg') center 22% / cover no-repeat !important;
+  box-shadow:0 20px 45px rgba(31,66,150,.22) !important;
+}
+#app .dashboard-hero:before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:-1 !important;
+  background:linear-gradient(
+    135deg,
+    rgba(7,27,61,.20) 0%,
+    rgba(24,74,160,.38) 42%,
+    rgba(70,48,145,.72) 72%,
+    rgba(35,22,88,.90) 100%
+  ) !important;
+  pointer-events:none !important;
+}
+#app .dashboard-hero:after{
+  width:220px !important;
+  height:220px !important;
+  right:-70px !important;
+  top:-85px !important;
+  background:rgba(255,255,255,.10) !important;
+  z-index:0 !important;
+}
+#app .dashboard-hero > div{
+  position:relative !important;
+  z-index:2 !important;
+}
+#app .dashboard-hero h1,
+#app .dashboard-hero p,
+#app .dashboard-hero .eyebrow{
+  text-shadow:0 2px 12px rgba(0,0,0,.58) !important;
+}
+#app .dashboard-hero p{color:rgba(255,255,255,.94) !important}
+#app .dashboard-hero .hero-progress{z-index:3 !important;background:rgba(255,255,255,.16) !important;backdrop-filter:blur(3px) !important}
+
+/* 2. LEVEL CARDS: keep the source image clearly visible without the extreme
+      crop caused by filling a very tall mobile card with a 900x520 image. */
+#app .course-card{
+  position:relative !important;
+  overflow:hidden !important;
+  isolation:isolate !important;
+  background:#173d76 !important;
+}
+#app .course-card:before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:-2 !important;
+  background-repeat:no-repeat !important;
+  background-position:center top !important;
+  background-size:100% auto !important;
+  transform:none !important;
+  filter:none !important;
+}
+/* A soft full-card continuation keeps the bottom of the card filled without
+   zooming the original photo. */
+#app .course-card:after{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:-1 !important;
+  background:linear-gradient(
+    180deg,
+    rgba(7,24,52,.02) 0%,
+    rgba(7,24,52,.08) 24%,
+    rgba(7,24,52,.28) 46%,
+    rgba(7,24,52,.68) 68%,
+    rgba(7,24,52,.94) 100%
+  ) !important;
+  pointer-events:none !important;
+}
+#app .course-card .course-card-content{z-index:2 !important}
+#app .course-card .course-title h2{text-shadow:0 2px 12px rgba(0,0,0,.55) !important}
+#app .course-card .course-title p,
+#app .course-card > .course-card-content > p,
+#app .course-card .course-title > strong,
+#app .course-card h3{ text-shadow:0 2px 9px rgba(0,0,0,.55) !important }
+
+/* Keep the four images natural and centered. */
+#app .course-card.level-basic:before{background-position:center top !important}
+#app .course-card.level-practical:before{background-position:center top !important}
+#app .course-card.level-professional:before{background-position:center top !important}
+#app .course-card.level-advanced:before{background-position:center top !important}
+
+@media(max-width:720px){
+  #app .dashboard-hero{
+    min-height:350px !important;
+    padding:22px !important;
+    background-position:center 18% !important;
+  }
+  #app .dashboard-hero h1{font-size:30px !important}
+  #app .dashboard-hero p{font-size:15px !important}
+  #app .course-card{
+    min-height:0 !important;
+    padding:18px !important;
+  }
+  #app .course-card:before{
+    background-size:100% auto !important;
+    background-position:center top !important;
+  }
+}
+</style>
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
