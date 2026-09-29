@@ -580,6 +580,46 @@ body.landing-mode .landing-lang{
 }
 </style>
 
+
+<style id="v21-level-image-final">
+/* V21 — final level-image framing. Preserve existing course/auth/backend logic. */
+.course-card{
+  background:#173d76 !important;
+  overflow:hidden !important;
+  isolation:isolate !important;
+}
+.course-card:before{
+  background-size:cover !important;
+  transform:none !important;
+  filter:none !important;
+  transition:none !important;
+}
+/* Individual focal points: keep the important subject visible while the card remains fully covered. */
+.course-card.level-basic:before{background-position:center 18% !important;}
+.course-card.level-practical:before{background-position:center 42% !important;}
+.course-card.level-professional:before{background-position:center 28% !important;}
+.course-card.level-advanced:before{background-position:center 50% !important;}
+
+/* Slightly more compact vertical rhythm reduces unnecessary image zoom on phones
+   while keeping every test inside its level card. */
+.course-card{padding:16px !important;min-height:0 !important;}
+.course-card .course-title h2{font-size:31px !important;line-height:1.08 !important;margin:8px 0 12px !important;}
+.course-card .course-title p{font-size:16px !important;line-height:1.38 !important;margin:0 0 12px !important;}
+.course-card .progress{margin:10px 0 !important;}
+.course-card .course-card-content > p{margin:10px 0 !important;}
+.course-card .row{gap:10px !important;margin:8px 0 !important;}
+.course-card .tests-grid{gap:10px !important;}
+.course-card .test-card{padding:12px !important;border-radius:17px !important;}
+.course-card .test-card b{font-size:16px !important;line-height:1.18 !important;}
+.course-card .test-card p{margin:8px 0 !important;}
+.course-card .test-card button{padding:10px 12px !important;font-size:14px !important;}
+@media(max-width:720px){
+  .course-card{padding:15px !important;}
+  .course-card .course-title h2{font-size:30px !important;}
+  .course-card .course-title p{font-size:16px !important;}
+}
+</style>
+
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
