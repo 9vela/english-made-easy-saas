@@ -759,3 +759,75 @@ async function saveAdminLesson(id){try{const lesson=(window._adminCourses||[]).f
 async function saveAdminTest(id){try{const questions=JSON.parse($('t-json-'+id).value);await adminFetch('/api/admin/tests/'+id,{method:'PUT',body:JSON.stringify({title:$('t-title-'+id).value,description:$('t-desc-'+id).value,pass_score:+$('t-pass-'+id).value,required:$('t-req-'+id).checked,questions})});alert('Test saved.')}catch(e){alert('Check the test JSON: '+e.message)}}
 $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutBtn').onclick=logout;$('dashBtn').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});window.addEventListener('load',boot);
 </script></body></html>
+
+<style id="v23-visual-fix">
+/* V23 — final image framing pass.
+   Visual-only: no backend, authentication, tests, progress or course logic changed. */
+
+/* WELCOME: keep the image sharp, cover the complete card, and shift the focal point
+   slightly right so decorative words embedded on the far-left of the source image
+   are kept outside the visible crop when possible. */
+.dashboard-banner > img{
+  image-rendering:auto !important;
+  filter:none !important;
+  object-fit:cover !important;
+  object-position:64% 32% !important;
+}
+.dashboard-banner > .dashboard-banner-copy{
+  background:linear-gradient(
+    180deg,
+    rgba(7,25,55,0) 0%,
+    rgba(7,25,55,.08) 18%,
+    rgba(7,25,55,.55) 56%,
+    rgba(7,25,55,.92) 100%
+  ) !important;
+  padding-top:118px !important;
+}
+.dashboard-banner > .dashboard-banner-copy .eyebrow,
+.dashboard-banner > .dashboard-banner-copy h2,
+.dashboard-banner > .dashboard-banner-copy p,
+.dashboard-banner > .dashboard-banner-copy .banner-note{
+  text-shadow:0 2px 10px rgba(0,0,0,.60) !important;
+}
+
+/* LEVELS: V22 stretched the source image to 100% 100%, which can distort faces,
+   planes and backgrounds. V23 preserves the image's natural aspect ratio instead.
+   Each level has its own focal point. */
+.course-card:before{
+  background-size:auto 100% !important;
+  background-repeat:no-repeat !important;
+  transform:none !important;
+  filter:none !important;
+}
+.course-card.level-basic:before{background-position:57% center !important;}
+.course-card.level-practical:before{background-position:54% center !important;}
+.course-card.level-professional:before{background-position:62% center !important;}
+.course-card.level-advanced:before{background-position:52% center !important;}
+
+/* Slightly stronger but clean overlay keeps text readable without blurring the image. */
+.course-card:after{
+  background:linear-gradient(
+    180deg,
+    rgba(7,24,52,.04) 0%,
+    rgba(7,24,52,.10) 32%,
+    rgba(7,24,52,.42) 66%,
+    rgba(7,24,52,.82) 100%
+  ) !important;
+}
+
+@media(max-width:720px){
+  .dashboard-banner > img{
+    object-position:64% 30% !important;
+  }
+  .dashboard-banner > .dashboard-banner-copy{
+    padding:108px 18px 20px !important;
+  }
+  .course-card:before{
+    background-size:auto 100% !important;
+  }
+  .course-card.level-basic:before{background-position:57% center !important;}
+  .course-card.level-practical:before{background-position:54% center !important;}
+  .course-card.level-professional:before{background-position:62% center !important;}
+  .course-card.level-advanced:before{background-position:52% center !important;}
+}
+</style>
