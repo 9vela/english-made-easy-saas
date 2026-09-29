@@ -337,6 +337,93 @@ body.landing-mode .nav-actions{margin-left:auto}
 }
 </style>
 
+
+<style id="v19-final-mobile-polish">
+/* V19 — only visual corrections requested after V18. No backend/auth logic changes. */
+
+/* Landing screen: keep only the language selector in the top header.
+   Login/Create account remain in the main landing hero. */
+body.landing-mode .nav-actions #loginBtn,
+body.landing-mode .nav-actions #registerBtn{
+  display:none !important;
+}
+body.landing-mode .nav-actions{
+  gap:0 !important;
+  margin-left:auto !important;
+}
+body.landing-mode .landing-lang{
+  display:block !important;
+  min-width:88px !important;
+}
+
+/* Welcome image: a little more head/sky, without changing its separate text block. */
+.dashboard-banner > img{
+  object-position:center 30% !important;
+}
+@media(max-width:720px){
+  .dashboard-banner > img{
+    object-position:center 30% !important;
+  }
+}
+
+/* Level images: keep the whole card covered, but reduce the visual zoom slightly
+   and use an individual focal point for each level. */
+.course-card:before{
+  background-size:cover !important;
+  transform:scale(1) !important;
+}
+.course-card.level-basic:before{background-position:center 32% !important;}
+.course-card.level-practical:before{background-position:center 52% !important;}
+.course-card.level-professional:before{background-position:center 40% !important;}
+.course-card.level-advanced:before{background-position:center 46% !important;}
+
+/* Tests: 2 tests occupy two compact columns; 3 tests occupy three compact columns.
+   This keeps every test card inside its level card and on the same row. */
+.course-card-content .tests-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:9px !important;
+  align-items:stretch !important;
+}
+.course-card-content .tests-grid .test-card{
+  padding:11px !important;
+  border-radius:16px !important;
+  border-left-width:4px !important;
+  box-shadow:0 7px 18px rgba(0,0,0,.10) !important;
+}
+.course-card-content .tests-grid .test-card b{
+  font-size:13px !important;
+  line-height:1.2 !important;
+}
+.course-card-content .tests-grid .test-card .muted{
+  font-size:12px !important;
+  margin:7px 0 !important;
+}
+.course-card-content .tests-grid .test-card .secondary{
+  padding:8px 6px !important;
+  font-size:12px !important;
+  border-radius:10px !important;
+}
+@media(max-width:720px){
+  .course-card-content .tests-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:8px !important;
+  }
+  .course-card-content .tests-grid .test-card{
+    padding:10px !important;
+  }
+  .course-card-content .tests-grid .test-card b{
+    font-size:12px !important;
+  }
+  .course-card-content .tests-grid .test-card .muted{
+    font-size:11px !important;
+  }
+  .course-card-content .tests-grid .test-card .secondary{
+    font-size:11px !important;
+    padding:8px 4px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
