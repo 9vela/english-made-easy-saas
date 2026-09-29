@@ -620,6 +620,45 @@ body.landing-mode .landing-lang{
 }
 </style>
 
+
+<style id="v22-level-image-clarity">
+/* V22 — keep the level images visible without the strong crop/zoom caused by cover.
+   No backend, authentication, tests, progress, or course logic is changed. */
+
+.course-card:before{
+  background-size:100% 100% !important;
+  background-position:center center !important;
+  background-repeat:no-repeat !important;
+  transform:none !important;
+  filter:none !important;
+}
+
+/* The image should remain clearly visible behind the content. */
+.course-card:after{
+  background:linear-gradient(
+    180deg,
+    rgba(7,24,52,.05) 0%,
+    rgba(7,24,52,.12) 30%,
+    rgba(7,24,52,.48) 68%,
+    rgba(7,24,52,.78) 100%
+  ) !important;
+}
+
+/* Keep each level's main subject centered instead of cutting off the face. */
+.course-card.level-basic:before,
+.course-card.level-practical:before,
+.course-card.level-professional:before,
+.course-card.level-advanced:before{
+  background-position:center center !important;
+}
+
+@media(max-width:720px){
+  .course-card:before{
+    background-size:100% 100% !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
