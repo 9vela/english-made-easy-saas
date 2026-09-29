@@ -209,6 +209,134 @@ body.landing-mode .nav-actions{margin-left:auto}
 }
 </style>
 
+
+<style id="v18-final-layout-fix">
+/* V18: definitive mobile layout fix.
+   The Welcome image and its text are separate blocks.
+   The level cards keep their full-image backgrounds and compact tests. */
+
+.dashboard-banner{
+  display:flex !important;
+  flex-direction:column !important;
+  position:relative !important;
+  min-height:0 !important;
+  height:auto !important;
+  overflow:hidden !important;
+}
+
+.dashboard-banner::after{
+  display:none !important;
+  content:none !important;
+}
+
+.dashboard-banner > img{
+  position:relative !important;
+  inset:auto !important;
+  display:block !important;
+  width:100% !important;
+  height:260px !important;
+  min-height:260px !important;
+  max-height:260px !important;
+  object-fit:cover !important;
+  object-position:center 38% !important;
+  order:0 !important;
+  flex:0 0 auto !important;
+}
+
+.dashboard-banner > .dashboard-banner-copy{
+  position:relative !important;
+  inset:auto !important;
+  left:auto !important;
+  right:auto !important;
+  top:auto !important;
+  bottom:auto !important;
+  z-index:1 !important;
+  order:1 !important;
+  width:100% !important;
+  max-width:none !important;
+  min-height:0 !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+  border:0 !important;
+  border-radius:0 0 24px 24px !important;
+  background:linear-gradient(135deg,#ffffff 0%,#eef5ff 100%) !important;
+  backdrop-filter:none !important;
+  box-shadow:none !important;
+  padding:20px 22px 22px !important;
+}
+
+.dashboard-banner > .dashboard-banner-copy h2{
+  color:#123b78 !important;
+  text-shadow:none !important;
+  margin:3px 0 7px !important;
+}
+
+.dashboard-banner > .dashboard-banner-copy p{
+  color:#52627d !important;
+  text-shadow:none !important;
+  margin:0 !important;
+  line-height:1.45 !important;
+}
+
+.dashboard-banner > .dashboard-banner-copy .banner-note{
+  color:#315dcc !important;
+  margin-top:10px !important;
+}
+
+/* Keep the four level images filling their cards without changing card structure. */
+.course-card{
+  background-size:cover !important;
+  background-repeat:no-repeat !important;
+}
+.course-card.level-basic:before{background-position:center 38% !important;}
+.course-card.level-practical:before{background-position:center 45% !important;}
+.course-card.level-professional:before{background-position:center 36% !important;}
+.course-card.level-advanced:before{background-position:center 42% !important;}
+
+/* Tests remain compact and side-by-side inside each level card. */
+.course-card-content .tests-grid{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:10px !important;
+  width:100% !important;
+}
+.course-card-content .tests-grid .test-card{
+  min-width:0 !important;
+  margin:0 !important;
+  padding:12px !important;
+  box-sizing:border-box !important;
+}
+.course-card-content .tests-grid .test-card b{
+  font-size:14px !important;
+  line-height:1.25 !important;
+}
+.course-card-content .tests-grid .test-card .secondary{
+  width:100% !important;
+  padding:10px 8px !important;
+}
+
+@media(max-width:720px){
+  .dashboard-banner > img{
+    height:245px !important;
+    min-height:245px !important;
+    max-height:245px !important;
+    object-position:center 38% !important;
+  }
+  .dashboard-banner > .dashboard-banner-copy{
+    padding:18px 18px 20px !important;
+  }
+  .dashboard-banner > .dashboard-banner-copy h2{
+    font-size:23px !important;
+  }
+  .dashboard-banner > .dashboard-banner-copy p{
+    font-size:15px !important;
+  }
+  .dashboard-banner > .dashboard-banner-copy .banner-note{
+    font-size:12px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
