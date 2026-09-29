@@ -424,6 +424,162 @@ body.landing-mode .landing-lang{
 }
 </style>
 
+
+<style id="v20-welcome-image-final">
+/* V20 — Welcome becomes one complete image card.
+   Only presentation is changed; course/auth/backend logic remains untouched. */
+
+/* The Welcome card itself is the image. */
+.dashboard-banner{
+  position:relative !important;
+  display:block !important;
+  min-height:430px !important;
+  height:430px !important;
+  overflow:hidden !important;
+  border-radius:24px !important;
+  background:#123b78 !important;
+  isolation:isolate !important;
+}
+
+/* Let the student image fill the entire Welcome card. */
+.dashboard-banner > img{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  min-height:100% !important;
+  max-height:none !important;
+  display:block !important;
+  object-fit:cover !important;
+  object-position:center 30% !important;
+  z-index:0 !important;
+}
+
+/* Gradient veil only at the lower part, so the student's face/image stays visible. */
+.dashboard-banner > .dashboard-banner-copy{
+  position:absolute !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  z-index:2 !important;
+  width:100% !important;
+  max-width:none !important;
+  min-height:0 !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+  padding:105px 24px 23px !important;
+  border:0 !important;
+  border-radius:0 0 24px 24px !important;
+  background:linear-gradient(
+    to bottom,
+    rgba(10,35,75,0) 0%,
+    rgba(10,35,75,.18) 24%,
+    rgba(10,35,75,.70) 58%,
+    rgba(7,25,55,.94) 100%
+  ) !important;
+  backdrop-filter:none !important;
+  box-shadow:none !important;
+  color:#fff !important;
+}
+
+/* Keep the copy readable without covering the important part of the image. */
+.dashboard-banner > .dashboard-banner-copy .eyebrow,
+.dashboard-banner > .dashboard-banner-copy h2,
+.dashboard-banner > .dashboard-banner-copy p,
+.dashboard-banner > .dashboard-banner-copy .banner-note{
+  position:relative !important;
+  z-index:3 !important;
+  color:#fff !important;
+  text-shadow:0 2px 9px rgba(0,0,0,.45) !important;
+}
+
+.dashboard-banner > .dashboard-banner-copy .eyebrow{
+  letter-spacing:1.5px !important;
+  font-weight:900 !important;
+  margin-bottom:5px !important;
+}
+
+.dashboard-banner > .dashboard-banner-copy h2{
+  margin:3px 0 8px !important;
+  font-size:27px !important;
+  line-height:1.15 !important;
+}
+
+.dashboard-banner > .dashboard-banner-copy p{
+  margin:0 !important;
+  font-size:16px !important;
+  line-height:1.42 !important;
+  max-width:620px !important;
+}
+
+.dashboard-banner > .dashboard-banner-copy .banner-note{
+  margin-top:9px !important;
+  font-weight:800 !important;
+  font-size:13px !important;
+}
+
+/* Two tests = two columns. Three tests = three columns. */
+.course-card-content .tests-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+}
+.course-card-content .tests-grid:has(.test-card:nth-child(3)){
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+}
+
+/* Slightly improve the four level image focal points without changing their cards. */
+.course-card:before{
+  background-size:cover !important;
+  background-repeat:no-repeat !important;
+}
+.course-card.level-basic:before{background-position:center 24% !important;}
+.course-card.level-practical:before{background-position:center 48% !important;}
+.course-card.level-professional:before{background-position:center 36% !important;}
+.course-card.level-advanced:before{background-position:center 44% !important;}
+
+@media(max-width:720px){
+  .dashboard-banner{
+    min-height:430px !important;
+    height:430px !important;
+  }
+  .dashboard-banner > img{
+    object-position:center 27% !important;
+  }
+  .dashboard-banner > .dashboard-banner-copy{
+    padding:112px 18px 20px !important;
+  }
+  .dashboard-banner > .dashboard-banner-copy h2{
+    font-size:24px !important;
+    line-height:1.16 !important;
+  }
+  .dashboard-banner > .dashboard-banner-copy p{
+    font-size:15px !important;
+    line-height:1.4 !important;
+  }
+  .dashboard-banner > .dashboard-banner-copy .banner-note{
+    font-size:12px !important;
+  }
+  .course-card-content .tests-grid{
+    gap:8px !important;
+  }
+  .course-card-content .tests-grid .test-card{
+    padding:10px !important;
+    border-radius:15px !important;
+  }
+  .course-card-content .tests-grid .test-card b{
+    font-size:12px !important;
+    line-height:1.18 !important;
+  }
+  .course-card-content .tests-grid .test-card .muted{
+    font-size:11px !important;
+    margin:7px 0 !important;
+  }
+  .course-card-content .tests-grid .test-card .secondary{
+    font-size:11px !important;
+    padding:8px 4px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
