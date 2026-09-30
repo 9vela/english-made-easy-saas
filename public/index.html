@@ -1489,3 +1489,94 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   #app .course-card.level-advanced:after{background-size:100% 100%, auto 71% !important;}
 }
 </style>
+
+<style id="v31-image-clarity-final">
+/* V31 — final image clarity pass.
+   The previous versions stacked several competing background rules. This final
+   rule is intentionally LAST so it controls the level-card images on mobile. */
+#app .course-card{
+  position:relative !important;
+  overflow:hidden !important;
+  isolation:isolate !important;
+}
+
+/* Soft full-card backdrop: it fills empty areas but is deliberately subtle. */
+#app .course-card:before{
+  content:"" !important;
+  position:absolute !important;
+  inset:-10px !important;
+  background-image:var(--course-bg) !important;
+  background-repeat:no-repeat !important;
+  background-size:cover !important;
+  background-position:center !important;
+  filter:blur(18px) brightness(.72) saturate(.95) !important;
+  transform:scale(1.06) !important;
+  opacity:.34 !important;
+  z-index:-3 !important;
+}
+
+/* Sharp photograph: width-based natural aspect ratio, never stretched to the
+   full tall card. The gradient is a separate first layer. */
+#app .course-card:after{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  background-image:
+    linear-gradient(180deg,
+      rgba(7,24,52,.00) 0%,
+      rgba(7,24,52,.02) 28%,
+      rgba(7,24,52,.08) 43%,
+      rgba(7,24,52,.30) 58%,
+      rgba(7,24,52,.72) 75%,
+      rgba(7,24,52,.94) 100%),
+    var(--course-bg) !important;
+  background-repeat:no-repeat,no-repeat !important;
+  background-size:100% 100%, 100% auto !important;
+  background-position:center center, center top !important;
+  filter:none !important;
+  transform:none !important;
+  opacity:1 !important;
+  z-index:-2 !important;
+}
+
+/* Individual focal points. These affect the clear photo, not the blurred copy. */
+#app .course-card.level-basic:after{background-position:center center, 50% 0 !important;}
+#app .course-card.level-practical:after{background-position:center center, 50% 0 !important;}
+#app .course-card.level-professional:after{background-position:center center, 50% 0 !important;}
+#app .course-card.level-advanced:after{background-position:center center, 50% 0 !important;}
+
+/* Keep copy above the photograph and crisp. */
+#app .course-card .course-card-content,
+#app .course-card .course-title,
+#app .course-card h2,
+#app .course-card h3,
+#app .course-card p,
+#app .course-card strong,
+#app .course-card .tag,
+#app .course-card .row,
+#app .course-card .tests-grid{position:relative !important;z-index:3 !important;}
+
+#app .course-card .course-title h2,
+#app .course-card .course-title p,
+#app .course-card .course-title > strong,
+#app .course-card .course-card-content > p,
+#app .course-card h3{
+  text-shadow:0 2px 4px rgba(0,0,0,.95),0 0 12px rgba(0,0,0,.55) !important;
+}
+
+/* On the phone, keep the photograph clear and reasonably sized. */
+@media(max-width:720px){
+  #app .course-card:before{
+    filter:blur(16px) brightness(.72) saturate(.95) !important;
+    opacity:.32 !important;
+  }
+  #app .course-card:after{
+    background-size:100% 100%, 100% auto !important;
+    background-position:center center, center top !important;
+  }
+  #app .course-card.level-basic:after{background-position:center center, 50% 0 !important;}
+  #app .course-card.level-practical:after{background-position:center center, 50% 0 !important;}
+  #app .course-card.level-professional:after{background-position:center center, 50% 0 !important;}
+  #app .course-card.level-advanced:after{background-position:center center, 50% 0 !important;}
+}
+</style>
