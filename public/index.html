@@ -1273,3 +1273,82 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   #app .dashboard-banner > .dashboard-banner-copy p{font-size:14px !important}
 }
 </style>
+
+<style id="v28-level-image-natural-blend">
+/* V28 — clearer level-card images with seamless blending.
+   Functionality untouched. Welcome/dashboard hero preserved. */
+#app .course-card{
+  background:#173d76 !important;
+}
+
+/* Blurred same-image backdrop prevents visible image edges. */
+#app .course-card:before{
+  background-image:var(--course-bg) !important;
+  background-size:cover !important;
+  background-position:center center !important;
+  background-repeat:no-repeat !important;
+  filter:blur(14px) saturate(1.06) brightness(.88) !important;
+  transform:scale(1.08) !important;
+  opacity:.78 !important;
+  z-index:-2 !important;
+}
+
+/* Foreground keeps the source image's natural proportions instead of
+   stretching/over-zooming it. The lower gradient merges into the card. */
+#app .course-card:after{
+  background-image:
+    linear-gradient(180deg,
+      rgba(7,24,52,.04) 0%,
+      rgba(7,24,52,.03) 38%,
+      rgba(7,24,52,.16) 55%,
+      rgba(7,24,52,.50) 72%,
+      rgba(7,24,52,.86) 88%,
+      rgba(7,24,52,.97) 100%),
+    var(--course-bg) !important;
+  background-size:100% 100%, auto 100% !important;
+  background-position:center center, center center !important;
+  background-repeat:no-repeat, no-repeat !important;
+  filter:saturate(1.04) contrast(1.04) brightness(1.03) !important;
+  transform:none !important;
+  opacity:1 !important;
+  z-index:-1 !important;
+}
+
+/* Keep the focal areas that were already chosen for each level. */
+#app .course-card.level-basic:after{background-position:center center, 57% center !important;}
+#app .course-card.level-practical:after{background-position:center center, 54% center !important;}
+#app .course-card.level-professional:after{background-position:center center, 62% center !important;}
+#app .course-card.level-advanced:after{background-position:center center, 52% center !important;}
+
+/* Text remains crisp and clearly separated from the image. */
+#app .course-card .course-title h2,
+#app .course-card .course-title p,
+#app .course-card .course-title > strong,
+#app .course-card .course-card-content > p,
+#app .course-card h3{
+  text-shadow:0 2px 4px rgba(0,0,0,.88), 0 0 12px rgba(0,0,0,.48) !important;
+}
+#app .course-card .course-title h2{
+  color:#fff !important;
+  font-weight:900 !important;
+  letter-spacing:-.2px;
+}
+#app .course-card .course-title p,
+#app .course-card .course-title > strong,
+#app .course-card .course-card-content > p{
+  color:#fff !important;
+}
+
+/* On small screens, keep the foreground image natural and let the blurred
+   backdrop fill any remaining space. */
+@media(max-width:720px){
+  #app .course-card:before{
+    background-size:cover !important;
+    filter:blur(12px) saturate(1.06) brightness(.86) !important;
+    transform:scale(1.07) !important;
+  }
+  #app .course-card:after{
+    background-size:100% 100%, auto 100% !important;
+  }
+}
+</style>
