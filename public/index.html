@@ -1885,3 +1885,145 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   #app .course-card .course-title p{font-size:16px !important;line-height:1.5 !important;}
 }
 </style>
+
+
+<!-- V35 — FINAL LEVEL CARD IMAGE FIX
+     Based directly on V34. Visual-only correction:
+     1) one image only (removes the duplicated-head/double-photo effect)
+     2) full image stretched to the card canvas so no part is cropped
+     3) no inner image box/boundary
+     4) overlay text is moved lower, away from text already embedded in photos
+     5) existing course data, tests, progress, auth and backend logic are untouched
+-->
+<style id="v35-level-cards-no-duplicate">
+#app .course-card{
+  position:relative !important;
+  overflow:hidden !important;
+  isolation:isolate !important;
+  background-color:#173d76 !important;
+  background-image:var(--course-bg) !important;
+  background-repeat:no-repeat !important;
+  background-position:center center !important;
+  /* ONE photo only: no second cover copy, no repeated image layer. */
+  background-size:100% 100% !important;
+}
+
+#app .course-card.level-basic{background-color:#0b4fa8 !important;}
+#app .course-card.level-practical{background-color:#08784e !important;}
+#app .course-card.level-professional{background-color:#4b1db2 !important;}
+#app .course-card.level-advanced{background-color:#a95a09 !important;}
+
+/* One continuous readability veil. It is NOT another copy of the photo. */
+#app .course-card::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:0 !important;
+  pointer-events:none !important;
+  background:linear-gradient(180deg,
+    rgba(4,18,42,.02) 0%,
+    rgba(4,18,42,.04) 28%,
+    rgba(4,18,42,.10) 40%,
+    rgba(4,18,42,.34) 56%,
+    rgba(4,18,42,.76) 73%,
+    rgba(4,18,42,.94) 88%,
+    rgba(4,18,42,.98) 100%) !important;
+}
+
+#app .course-card::after{
+  display:none !important;
+  background:none !important;
+}
+
+/* Put the course information in a safer lower zone, away from text already
+   printed inside the photographs. No solid rectangle is added. */
+#app .course-card .course-card-content{
+  position:relative !important;
+  z-index:2 !important;
+  padding:300px 18px 18px !important;
+}
+
+#app .course-card .course-title{
+  position:relative !important;
+  z-index:3 !important;
+  margin:0 !important;
+  gap:8px !important;
+  align-items:flex-start !important;
+}
+
+#app .course-card .course-title h2{
+  margin:8px 0 10px !important;
+  font-size:30px !important;
+  line-height:1.08 !important;
+  font-weight:900 !important;
+  color:#fff !important;
+  text-shadow:0 3px 7px rgba(0,0,0,.98),0 0 14px rgba(0,0,0,.65) !important;
+}
+
+#app .course-card .course-title p{
+  margin:0 0 12px !important;
+  font-size:16px !important;
+  line-height:1.48 !important;
+  color:#fff !important;
+  text-shadow:0 2px 6px rgba(0,0,0,.98),0 0 12px rgba(0,0,0,.55) !important;
+}
+
+#app .course-card .course-title>strong{
+  font-size:22px !important;
+  white-space:nowrap !important;
+  color:#fff !important;
+  text-shadow:0 3px 7px rgba(0,0,0,.98) !important;
+}
+
+#app .course-card .tag{
+  position:relative !important;
+  z-index:4 !important;
+}
+
+#app .course-card .progress,
+#app .course-card .course-card-content>p,
+#app .course-card .row,
+#app .course-card .tests-grid,
+#app .course-card h3,
+#app .course-card .test-card{
+  position:relative !important;
+  z-index:3 !important;
+}
+
+#app .course-card .course-card-content>p,
+#app .course-card h3{
+  color:#fff !important;
+  text-shadow:0 2px 6px rgba(0,0,0,.95),0 0 10px rgba(0,0,0,.45) !important;
+}
+
+/* Keep the test cards themselves clean and readable. */
+#app .course-card .test-card{
+  background:rgba(255,255,255,.96) !important;
+  backdrop-filter:blur(2px) !important;
+}
+
+@media(max-width:720px){
+  #app .course-card{
+    background-size:100% 100% !important;
+    background-position:center center !important;
+  }
+
+  #app .course-card .course-card-content{
+    padding:300px 15px 15px !important;
+  }
+
+  #app .course-card .course-title h2{
+    font-size:29px !important;
+    line-height:1.08 !important;
+  }
+
+  #app .course-card .course-title p{
+    font-size:15px !important;
+    line-height:1.5 !important;
+  }
+
+  #app .course-card .course-title>strong{
+    font-size:21px !important;
+  }
+}
+</style>
