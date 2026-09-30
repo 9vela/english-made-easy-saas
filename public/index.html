@@ -1201,6 +1201,146 @@ body.landing-mode .landing-lang{
   #app .course-card .tests-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:8px !important;}
 }
 </style>
+
+<style id="v40-test-cards-pc-framing">
+/* V40 — final correction requested: test cards must be fully visible, and the
+   Professional image should show more of the laptop/PC without aggressive zoom. */
+#app .course-card{
+  height:auto !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+  box-sizing:border-box !important;
+  background-image:var(--course-bg) !important;
+  background-repeat:no-repeat !important;
+  background-size:cover !important;
+  background-position:center center !important;
+}
+
+/* Give the content enough room so the test cards are part of the card height,
+   never children hanging below a clipped bottom edge. */
+#app .course-card .course-card-content{
+  display:block !important;
+  height:auto !important;
+  min-height:0 !important;
+  overflow:visible !important;
+  box-sizing:border-box !important;
+  padding:18px 15px 22px !important;
+}
+
+#app .course-card .tests-grid{
+  display:grid !important;
+  width:100% !important;
+  height:auto !important;
+  min-height:0 !important;
+  overflow:visible !important;
+  align-items:stretch !important;
+  margin:12px 0 0 !important;
+  gap:9px !important;
+}
+
+/* Basic has 2 tests; the other levels have 3. */
+#app .course-card .tests-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+}
+#app .course-card .tests-grid:has(.test-card:nth-child(3)){
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+}
+
+#app .course-card .tests-grid .test-card{
+  position:relative !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:flex-start !important;
+  align-self:stretch !important;
+  width:auto !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  height:auto !important;
+  margin:0 !important;
+  padding:10px 7px 11px !important;
+  box-sizing:border-box !important;
+  overflow:visible !important;
+}
+
+#app .course-card .tests-grid .test-card b{
+  display:block !important;
+  font-size:12px !important;
+  line-height:1.16 !important;
+  min-height:0 !important;
+}
+#app .course-card .tests-grid .test-card .muted{
+  font-size:11px !important;
+  line-height:1.2 !important;
+  margin:7px 0 !important;
+}
+#app .course-card .tests-grid .test-card .secondary{
+  display:block !important;
+  width:100% !important;
+  min-height:34px !important;
+  height:auto !important;
+  padding:7px 4px !important;
+  margin:0 !important;
+  font-size:10px !important;
+  line-height:1.1 !important;
+  white-space:nowrap !important;
+  box-sizing:border-box !important;
+}
+
+/* Keep the title in the lower part of the photo, without moving it over the face. */
+#app .course-card .course-title{
+  margin:0 !important;
+  padding:0 !important;
+}
+#app .course-card .course-title h2{
+  margin:8px 0 10px !important;
+}
+#app .course-card .course-title p{
+  margin:0 0 12px !important;
+}
+
+/* Individual framing: the Professional source image contains the laptop at the
+   lower-right, so keep the bottom of that photograph in view. */
+#app .course-card.level-professional{
+  background-position:center bottom !important;
+}
+#app .course-card.level-practical{
+  background-position:center 48% !important;
+}
+#app .course-card.level-basic{
+  background-position:center 42% !important;
+}
+#app .course-card.level-advanced{
+  background-position:center 48% !important;
+}
+
+@media(max-width:720px){
+  #app .course-card .course-card-content{
+    padding:18px 15px 22px !important;
+  }
+  #app .course-card .tests-grid{
+    gap:8px !important;
+  }
+  #app .course-card .tests-grid .test-card{
+    padding:10px 6px 11px !important;
+  }
+  #app .course-card .tests-grid .test-card b{
+    font-size:12px !important;
+  }
+  #app .course-card .tests-grid .test-card .muted{
+    font-size:11px !important;
+    margin:6px 0 !important;
+  }
+  #app .course-card .tests-grid .test-card .secondary{
+    min-height:34px !important;
+    font-size:10px !important;
+    padding:7px 3px !important;
+  }
+  #app .course-card.level-professional{
+    background-position:center bottom !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
@@ -2314,132 +2454,5 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   #app .course-card .tests-grid .test-card b{font-size:12px !important;}
   #app .course-card .tests-grid .test-card .muted{font-size:11px !important;margin:6px 0 !important;}
   #app .course-card .tests-grid .test-card .secondary{font-size:10px !important;padding:7px 3px !important;}
-}
-</style>
-
-
-<!-- V40 — SMART TEXT POSITION
-     Keep the single full-card background from V39.
-     Move overlay content lower so titles/descriptions do not sit on faces or
-     important details inside the photographs. No course logic/data changes. -->
-<style id="v40-smart-text-position">
-#app .course-card .course-card-content{
-  padding:118px 18px 18px !important;
-}
-
-/* Each level gets a small, deliberate vertical offset. */
-#app .course-card.level-basic .course-card-content{
-  padding-top:105px !important;
-}
-#app .course-card.level-practical .course-card-content{
-  padding-top:105px !important;
-}
-#app .course-card.level-professional .course-card-content{
-  padding-top:145px !important;
-}
-#app .course-card.level-advanced .course-card-content{
-  padding-top:115px !important;
-}
-
-/* Keep the title block together and readable after moving it down. */
-#app .course-card .course-title{
-  margin-top:0 !important;
-}
-#app .course-card .course-title h2{
-  margin-top:6px !important;
-  margin-bottom:10px !important;
-}
-#app .course-card .course-title p{
-  margin-bottom:14px !important;
-}
-
-@media(max-width:720px){
-  #app .course-card .course-card-content{
-    padding:105px 15px 15px !important;
-  }
-  #app .course-card.level-basic .course-card-content{
-    padding-top:95px !important;
-  }
-  #app .course-card.level-practical .course-card-content{
-    padding-top:95px !important;
-  }
-  #app .course-card.level-professional .course-card-content{
-    padding-top:130px !important;
-  }
-  #app .course-card.level-advanced .course-card-content{
-    padding-top:105px !important;
-  }
-}
-</style>
-
-
-<!-- V41 — FINAL TEXT POSITION FIX
-     Keep the V40 full-card photo exactly as it is.
-     Move the complete card content downward without changing the card/image
-     dimensions. This prevents the title/description from sitting on faces
-     while preserving the current image framing. -->
-<style id="v41-final-text-position-fix">
-#app .course-card .course-card-content{
-  position:relative !important;
-  box-sizing:border-box !important;
-}
-
-/* Desktop/tablet */
-#app .course-card.level-basic .course-card-content{
-  padding-top:165px !important;
-  margin-bottom:-60px !important;
-}
-#app .course-card.level-practical .course-card-content{
-  padding-top:165px !important;
-  margin-bottom:-60px !important;
-}
-#app .course-card.level-professional .course-card-content{
-  padding-top:230px !important;
-  margin-bottom:-100px !important;
-}
-#app .course-card.level-advanced .course-card-content{
-  padding-top:175px !important;
-  margin-bottom:-60px !important;
-}
-
-/* Keep the heading itself compact so the important photo area remains visible. */
-#app .course-card .course-title h2{
-  margin-top:4px !important;
-  margin-bottom:8px !important;
-}
-#app .course-card .course-title p{
-  margin-bottom:12px !important;
-}
-
-/* Mobile — the main target seen on the phone. */
-@media(max-width:720px){
-  #app .course-card.level-basic .course-card-content{
-    padding-top:155px !important;
-    margin-bottom:-60px !important;
-  }
-  #app .course-card.level-practical .course-card-content{
-    padding-top:155px !important;
-    margin-bottom:-60px !important;
-  }
-  #app .course-card.level-professional .course-card-content{
-    padding-top:220px !important;
-    margin-bottom:-90px !important;
-  }
-  #app .course-card.level-advanced .course-card-content{
-    padding-top:165px !important;
-    margin-bottom:-60px !important;
-  }
-
-  #app .course-card .course-title h2{
-    font-size:28px !important;
-    line-height:1.08 !important;
-    margin-top:3px !important;
-    margin-bottom:8px !important;
-  }
-  #app .course-card .course-title p{
-    font-size:15px !important;
-    line-height:1.45 !important;
-    margin-bottom:10px !important;
-  }
 }
 </style>
