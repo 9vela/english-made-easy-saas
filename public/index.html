@@ -1401,25 +1401,6 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   #app .course-card:before{background-size:cover !important;background-position:center center !important;}
 }
 </style>
-
-<style id="v41-text-position-final">
-/* V41 — text positioning only. Keep V40 full-card images unchanged. */
-#app .course-card .course-card-content{padding:128px 18px 18px !important;}
-#app .course-card.level-basic .course-card-content{padding-top:118px !important;}
-#app .course-card.level-practical .course-card-content{padding-top:118px !important;}
-#app .course-card.level-professional .course-card-content{padding-top:178px !important;}
-#app .course-card.level-advanced .course-card-content{padding-top:128px !important;}
-#app .course-card .course-title h2{margin-top:4px !important;margin-bottom:9px !important;}
-#app .course-card .course-title p{margin-bottom:12px !important;}
-@media(max-width:720px){
-  #app .course-card .course-card-content{padding:116px 15px 15px !important;}
-  #app .course-card.level-basic .course-card-content{padding-top:108px !important;}
-  #app .course-card.level-practical .course-card-content{padding-top:108px !important;}
-  #app .course-card.level-professional .course-card-content{padding-top:158px !important;}
-  #app .course-card.level-advanced .course-card-content{padding-top:118px !important;}
-}
-</style>
-
 </body></html>
 
 <style id="v23-visual-fix">
@@ -2387,6 +2368,78 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   }
   #app .course-card.level-advanced .course-card-content{
     padding-top:105px !important;
+  }
+}
+</style>
+
+
+<!-- V41 — FINAL TEXT POSITION FIX
+     Keep the V40 full-card photo exactly as it is.
+     Move the complete card content downward without changing the card/image
+     dimensions. This prevents the title/description from sitting on faces
+     while preserving the current image framing. -->
+<style id="v41-final-text-position-fix">
+#app .course-card .course-card-content{
+  position:relative !important;
+  box-sizing:border-box !important;
+}
+
+/* Desktop/tablet */
+#app .course-card.level-basic .course-card-content{
+  padding-top:165px !important;
+  margin-bottom:-60px !important;
+}
+#app .course-card.level-practical .course-card-content{
+  padding-top:165px !important;
+  margin-bottom:-60px !important;
+}
+#app .course-card.level-professional .course-card-content{
+  padding-top:230px !important;
+  margin-bottom:-100px !important;
+}
+#app .course-card.level-advanced .course-card-content{
+  padding-top:175px !important;
+  margin-bottom:-60px !important;
+}
+
+/* Keep the heading itself compact so the important photo area remains visible. */
+#app .course-card .course-title h2{
+  margin-top:4px !important;
+  margin-bottom:8px !important;
+}
+#app .course-card .course-title p{
+  margin-bottom:12px !important;
+}
+
+/* Mobile — the main target seen on the phone. */
+@media(max-width:720px){
+  #app .course-card.level-basic .course-card-content{
+    padding-top:155px !important;
+    margin-bottom:-60px !important;
+  }
+  #app .course-card.level-practical .course-card-content{
+    padding-top:155px !important;
+    margin-bottom:-60px !important;
+  }
+  #app .course-card.level-professional .course-card-content{
+    padding-top:220px !important;
+    margin-bottom:-90px !important;
+  }
+  #app .course-card.level-advanced .course-card-content{
+    padding-top:165px !important;
+    margin-bottom:-60px !important;
+  }
+
+  #app .course-card .course-title h2{
+    font-size:28px !important;
+    line-height:1.08 !important;
+    margin-top:3px !important;
+    margin-bottom:8px !important;
+  }
+  #app .course-card .course-title p{
+    font-size:15px !important;
+    line-height:1.45 !important;
+    margin-bottom:10px !important;
   }
 }
 </style>
