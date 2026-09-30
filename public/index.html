@@ -2070,3 +2070,60 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   #app .course-card .course-title>strong{font-size:21px !important;}
 }
 </style>
+
+<style id="v37-balanced-image-cards">
+/* V37 — based directly on V36. Fix the overlay that was hiding the top of the photos. */
+#app .course-card{
+  background-size:100% auto !important;
+  background-position:center top !important;
+  background-repeat:no-repeat !important;
+  min-height:0 !important;
+}
+/* The previous V36 veil created the large blue/purple blank block. Keep it transparent so the photo remains visible. */
+#app .course-card::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:1 !important;
+  pointer-events:none !important;
+  background:linear-gradient(180deg,
+    rgba(4,18,42,0) 0%,
+    rgba(4,18,42,0) 48%,
+    rgba(4,18,42,.10) 62%,
+    rgba(4,18,42,.38) 76%,
+    rgba(4,18,42,.72) 90%,
+    rgba(4,18,42,.90) 100%) !important;
+}
+#app .course-card .course-card-content{
+  padding:clamp(205px,48vw,300px) 18px 18px !important;
+}
+#app .course-card .course-title{margin:10px 0 0 !important;}
+#app .course-card .course-title h2{font-size:29px !important;line-height:1.08 !important;margin:6px 0 10px !important;}
+#app .course-card .course-title p{font-size:15px !important;line-height:1.45 !important;margin:0 0 12px !important;}
+
+/* Compact test cards: same three-column layout, but shorter and more balanced. */
+#app .course-card .tests-grid{gap:10px !important;margin-top:10px !important;}
+#app .course-card .tests-grid .test-card{
+  min-height:0 !important;
+  height:auto !important;
+  padding:10px 8px !important;
+  border-radius:15px !important;
+}
+#app .course-card .tests-grid .test-card b{font-size:13px !important;line-height:1.15 !important;}
+#app .course-card .tests-grid .test-card .muted{font-size:12px !important;margin:7px 0 !important;}
+#app .course-card .tests-grid .test-card .secondary{font-size:11px !important;padding:8px 4px !important;white-space:nowrap !important;}
+
+@media(max-width:720px){
+  #app .course-card{background-size:100% auto !important;background-position:center top !important;}
+  #app .course-card::before{background:linear-gradient(180deg,rgba(4,18,42,0) 0%,rgba(4,18,42,0) 48%,rgba(4,18,42,.08) 62%,rgba(4,18,42,.34) 76%,rgba(4,18,42,.68) 90%,rgba(4,18,42,.88) 100%) !important;}
+  #app .course-card .course-card-content{padding:clamp(195px,48vw,285px) 15px 15px !important;}
+  #app .course-card .course-title{margin-top:8px !important;}
+  #app .course-card .course-title h2{font-size:28px !important;}
+  #app .course-card .course-title p{font-size:15px !important;}
+  #app .course-card .tests-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:8px !important;}
+  #app .course-card .tests-grid .test-card{padding:9px 7px !important;min-height:0 !important;}
+  #app .course-card .tests-grid .test-card b{font-size:12px !important;}
+  #app .course-card .tests-grid .test-card .muted{font-size:11px !important;margin:6px 0 !important;}
+  #app .course-card .tests-grid .test-card .secondary{font-size:10px !important;padding:7px 3px !important;}
+}
+</style>
