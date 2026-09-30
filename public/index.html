@@ -2418,41 +2418,50 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
 }
 </style>
 
-<style id="v44-level3-final-only">
-/* V44 — ONLY Level 3 / Professional English.
-   Do not change Levels 1, 2 or 4, test logic, progress, auth or backend. */
+<style id="v45-level3-only">
+/* V45 — ONLY Level 3 / Professional English.
+   Restore the photo as the full-card background.
+   Levels 1, 2 and 4 remain untouched. */
 #app .course-card.level-professional{
-  background-color:#4b1db2 !important;
-  background-image:var(--course-bg) !important;
-  background-repeat:no-repeat !important;
-  background-size:92% auto !important;
-  background-position:center top !important;
-  background-attachment:scroll !important;
-  min-height:0 !important;
+  background-color:#173d76 !important;
+  background-image:none !important;
   overflow:hidden !important;
 }
 
-/* Put the Level 3 text below the face, while keeping the original photo framing. */
+/* The original full-card background remains a single continuous image.
+   Only its framing is adjusted so the laptop stays visible. */
+#app .course-card.level-professional:before{
+  background-size:cover !important;
+  background-repeat:no-repeat !important;
+  background-position:68% 48% !important;
+  transform:none !important;
+}
+
+/* Move Level 3 copy below the face without creating a separate image panel. */
 #app .course-card.level-professional .course-card-content{
-  padding:345px 18px 18px !important;
+  padding-top:320px !important;
 }
 #app .course-card.level-professional .course-title{
-  margin:0 !important;
+  margin-top:0 !important;
 }
 #app .course-card.level-professional .course-title h2{
-  margin:6px 0 10px !important;
+  margin-top:6px !important;
+  margin-bottom:10px !important;
 }
 #app .course-card.level-professional .course-title p{
-  margin:0 0 14px !important;
+  margin-bottom:14px !important;
 }
 
 @media(max-width:720px){
   #app .course-card.level-professional{
-    background-size:92% auto !important;
-    background-position:center top !important;
+    background-image:none !important;
+  }
+  #app .course-card.level-professional:before{
+    background-size:cover !important;
+    background-position:68% 48% !important;
   }
   #app .course-card.level-professional .course-card-content{
-    padding:345px 15px 15px !important;
+    padding:315px 15px 15px !important;
   }
 }
 </style>
