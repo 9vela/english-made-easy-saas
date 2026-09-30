@@ -2316,3 +2316,58 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   #app .course-card .tests-grid .test-card .secondary{font-size:10px !important;padding:7px 3px !important;}
 }
 </style>
+
+
+<!-- V40 — SMART TEXT POSITION
+     Keep the single full-card background from V39.
+     Move overlay content lower so titles/descriptions do not sit on faces or
+     important details inside the photographs. No course logic/data changes. -->
+<style id="v40-smart-text-position">
+#app .course-card .course-card-content{
+  padding:118px 18px 18px !important;
+}
+
+/* Each level gets a small, deliberate vertical offset. */
+#app .course-card.level-basic .course-card-content{
+  padding-top:105px !important;
+}
+#app .course-card.level-practical .course-card-content{
+  padding-top:105px !important;
+}
+#app .course-card.level-professional .course-card-content{
+  padding-top:145px !important;
+}
+#app .course-card.level-advanced .course-card-content{
+  padding-top:115px !important;
+}
+
+/* Keep the title block together and readable after moving it down. */
+#app .course-card .course-title{
+  margin-top:0 !important;
+}
+#app .course-card .course-title h2{
+  margin-top:6px !important;
+  margin-bottom:10px !important;
+}
+#app .course-card .course-title p{
+  margin-bottom:14px !important;
+}
+
+@media(max-width:720px){
+  #app .course-card .course-card-content{
+    padding:105px 15px 15px !important;
+  }
+  #app .course-card.level-basic .course-card-content{
+    padding-top:95px !important;
+  }
+  #app .course-card.level-practical .course-card-content{
+    padding-top:95px !important;
+  }
+  #app .course-card.level-professional .course-card-content{
+    padding-top:130px !important;
+  }
+  #app .course-card.level-advanced .course-card-content{
+    padding-top:105px !important;
+  }
+}
+</style>
