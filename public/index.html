@@ -1401,6 +1401,25 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   #app .course-card:before{background-size:cover !important;background-position:center center !important;}
 }
 </style>
+
+<style id="v41-text-position-final">
+/* V41 — text positioning only. Keep V40 full-card images unchanged. */
+#app .course-card .course-card-content{padding:128px 18px 18px !important;}
+#app .course-card.level-basic .course-card-content{padding-top:118px !important;}
+#app .course-card.level-practical .course-card-content{padding-top:118px !important;}
+#app .course-card.level-professional .course-card-content{padding-top:178px !important;}
+#app .course-card.level-advanced .course-card-content{padding-top:128px !important;}
+#app .course-card .course-title h2{margin-top:4px !important;margin-bottom:9px !important;}
+#app .course-card .course-title p{margin-bottom:12px !important;}
+@media(max-width:720px){
+  #app .course-card .course-card-content{padding:116px 15px 15px !important;}
+  #app .course-card.level-basic .course-card-content{padding-top:108px !important;}
+  #app .course-card.level-practical .course-card-content{padding-top:108px !important;}
+  #app .course-card.level-professional .course-card-content{padding-top:158px !important;}
+  #app .course-card.level-advanced .course-card-content{padding-top:118px !important;}
+}
+</style>
+
 </body></html>
 
 <style id="v23-visual-fix">
