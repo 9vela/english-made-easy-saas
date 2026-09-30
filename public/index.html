@@ -2417,3 +2417,42 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   }
 }
 </style>
+
+<style id="v44-level3-final-only">
+/* V44 — ONLY Level 3 / Professional English.
+   Do not change Levels 1, 2 or 4, test logic, progress, auth or backend. */
+#app .course-card.level-professional{
+  background-color:#4b1db2 !important;
+  background-image:var(--course-bg) !important;
+  background-repeat:no-repeat !important;
+  background-size:92% auto !important;
+  background-position:center top !important;
+  background-attachment:scroll !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+}
+
+/* Put the Level 3 text below the face, while keeping the original photo framing. */
+#app .course-card.level-professional .course-card-content{
+  padding:345px 18px 18px !important;
+}
+#app .course-card.level-professional .course-title{
+  margin:0 !important;
+}
+#app .course-card.level-professional .course-title h2{
+  margin:6px 0 10px !important;
+}
+#app .course-card.level-professional .course-title p{
+  margin:0 0 14px !important;
+}
+
+@media(max-width:720px){
+  #app .course-card.level-professional{
+    background-size:92% auto !important;
+    background-position:center top !important;
+  }
+  #app .course-card.level-professional .course-card-content{
+    padding:345px 15px 15px !important;
+  }
+}
+</style>
