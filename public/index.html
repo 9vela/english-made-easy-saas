@@ -1352,3 +1352,74 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   }
 }
 </style>
+
+<style id="v29-level-image-final-fix">
+/* V29 — reduce image zoom while keeping the whole card visually blended.
+   Visual-only: no course, test, progress, auth or backend logic changed. */
+#app .course-card:before{
+  background-image:var(--course-bg) !important;
+  background-size:cover !important;
+  background-position:center center !important;
+  background-repeat:no-repeat !important;
+  filter:blur(12px) saturate(1.04) brightness(.86) !important;
+  transform:scale(1.06) !important;
+  opacity:.72 !important;
+}
+
+/* The sharp source image is deliberately smaller than the tall mobile card.
+   The blurred copy behind it fills the remaining area, so there is no hard edge. */
+#app .course-card:after{
+  background-image:
+    linear-gradient(180deg,
+      rgba(7,24,52,.02) 0%,
+      rgba(7,24,52,.02) 34%,
+      rgba(7,24,52,.16) 52%,
+      rgba(7,24,52,.48) 68%,
+      rgba(7,24,52,.82) 84%,
+      rgba(7,24,52,.96) 100%),
+    var(--course-bg) !important;
+  background-repeat:no-repeat, no-repeat !important;
+  background-position:center center, center top !important;
+  background-size:100% 100%, auto 74% !important;
+  filter:none !important;
+  transform:none !important;
+  opacity:1 !important;
+  z-index:-1 !important;
+}
+
+#app .course-card.level-basic:after{
+  background-position:center center, 50% 8% !important;
+  background-size:100% 100%, auto 70% !important;
+}
+#app .course-card.level-practical:after{
+  background-position:center center, 50% 2% !important;
+  background-size:100% 100%, auto 76% !important;
+}
+#app .course-card.level-professional:after{
+  background-position:center center, 50% 4% !important;
+  background-size:100% 100%, auto 70% !important;
+}
+#app .course-card.level-advanced:after{
+  background-position:center center, 50% 2% !important;
+  background-size:100% 100%, auto 74% !important;
+}
+
+#app .course-card .course-title h2,
+#app .course-card .course-title p,
+#app .course-card .course-title > strong,
+#app .course-card .course-card-content > p,
+#app .course-card h3{
+  text-shadow:0 2px 5px rgba(0,0,0,.90), 0 0 10px rgba(0,0,0,.55) !important;
+}
+
+@media(max-width:720px){
+  #app .course-card:before{
+    filter:blur(10px) saturate(1.04) brightness(.86) !important;
+    transform:scale(1.05) !important;
+  }
+  #app .course-card.level-basic:after{background-size:100% 100%, auto 68% !important;}
+  #app .course-card.level-practical:after{background-size:100% 100%, auto 73% !important;}
+  #app .course-card.level-professional:after{background-size:100% 100%, auto 68% !important;}
+  #app .course-card.level-advanced:after{background-size:100% 100%, auto 71% !important;}
+}
+</style>
