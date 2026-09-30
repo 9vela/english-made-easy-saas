@@ -1229,10 +1229,6 @@ body.landing-mode .landing-lang{
   }
 }
 </style>
-
-
-
-
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
@@ -1431,6 +1427,24 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
 #app .course-card .course-title p,#app .course-card .course-title>strong,#app .course-card .course-card-content>p{color:#fff !important;}
 @media(max-width:720px){
   #app .course-card:before{background-size:cover !important;background-position:center center !important;}
+}
+</style>
+
+<style id="v43-level3-only-fix">
+/* V43 — ONLY Level 3 image framing.
+   Levels 1, 2 and 4, test cards, layout and functionality are untouched. */
+#app .course-card.level-professional:before{
+  background-size:100% auto !important;
+  background-position:center top !important;
+  background-repeat:no-repeat !important;
+  transform:none !important;
+  filter:none !important;
+}
+@media(max-width:720px){
+  #app .course-card.level-professional:before{
+    background-size:100% auto !important;
+    background-position:center top !important;
+  }
 }
 </style>
 </body></html>
@@ -2401,40 +2415,5 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   #app .course-card.level-advanced .course-card-content{
     padding-top:105px !important;
   }
-}
-</style>
-
-<style id="v42-approved-image-framing">
-/* V42 — approved image framing: show the original photo more naturally, keep the laptop/PC visible, and keep all test cards complete. */
-#app .course-card{
-  background-image:var(--course-bg) !important;
-  background-repeat:no-repeat !important;
-  background-size:100% 100% !important;
-  background-position:center center !important;
-  background-color:#173d76 !important;
-  overflow:hidden !important;
-  min-height:0 !important;
-}
-#app .course-card::before{
-  background:linear-gradient(180deg,rgba(4,18,42,.03) 0%,rgba(4,18,42,.03) 38%,rgba(4,18,42,.08) 60%,rgba(4,18,42,.24) 78%,rgba(4,18,42,.48) 100%) !important;
-}
-/* Text stays lower, away from the face and important photo details. */
-#app .course-card .course-card-content{padding:145px 18px 18px !important;}
-#app .course-card.level-basic .course-card-content{padding-top:120px !important;}
-#app .course-card.level-practical .course-card-content{padding-top:120px !important;}
-#app .course-card.level-professional .course-card-content{padding-top:150px !important;}
-#app .course-card.level-advanced .course-card-content{padding-top:130px !important;}
-/* Do not let the test row be clipped. */
-#app .course-card .tests-grid{overflow:visible !important;align-items:stretch !important;}
-#app .course-card .tests-grid .test-card{min-height:154px !important;height:auto !important;box-sizing:border-box !important;}
-@media(max-width:720px){
-  #app .course-card{background-size:100% 100% !important;background-position:center center !important;}
-  #app .course-card .course-card-content{padding:125px 15px 15px !important;}
-  #app .course-card.level-basic .course-card-content{padding-top:105px !important;}
-  #app .course-card.level-practical .course-card-content{padding-top:105px !important;}
-  #app .course-card.level-professional .course-card-content{padding-top:135px !important;}
-  #app .course-card.level-advanced .course-card-content{padding-top:115px !important;}
-  #app .course-card .tests-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:8px !important;}
-  #app .course-card .tests-grid .test-card{min-height:155px !important;padding:10px 6px !important;}
 }
 </style>
