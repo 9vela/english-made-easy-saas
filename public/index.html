@@ -1135,7 +1135,73 @@ async function saveAdminCourse(id){try{await adminFetch('/api/admin/courses/'+id
 async function saveAdminLesson(id){try{const lesson=(window._adminCourses||[]).flatMap(c=>c.lessons||[]).find(x=>x.id===id);const pron=JSON.parse($('l-pron-'+id).value);if(!Array.isArray(pron))throw new Error('Pronunciation must be a JSON array.');await adminFetch('/api/admin/lessons/'+id,{method:'PUT',body:JSON.stringify({title:$('l-title-'+id).value,content:$('l-content-'+id).value,free:$('l-free-'+id).checked,lesson_order:lesson?lesson.lesson_order:1,pronunciation:pron})});alert('Lesson saved.')}catch(e){alert(e.message)}}
 async function saveAdminTest(id){try{const questions=JSON.parse($('t-json-'+id).value);await adminFetch('/api/admin/tests/'+id,{method:'PUT',body:JSON.stringify({title:$('t-title-'+id).value,description:$('t-desc-'+id).value,pass_score:+$('t-pass-'+id).value,required:$('t-req-'+id).checked,questions})});alert('Test saved.')}catch(e){alert('Check the test JSON: '+e.message)}}
 $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutBtn').onclick=logout;$('dashBtn').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});window.addEventListener('load',boot);
-</script></body></html>
+</script>
+<style id="v30-natural-image-fix">
+/* V30 — natural-size image treatment for level cards.
+   Keep the photograph sharp and proportional; use a soft blurred copy only behind it. */
+#app .course-card:before{
+  background-image:var(--course-bg) !important;
+  background-size:cover !important;
+  background-position:center center !important;
+  background-repeat:no-repeat !important;
+  filter:blur(7px) saturate(1.02) brightness(.78) !important;
+  transform:scale(1.035) !important;
+  opacity:.48 !important;
+}
+#app .course-card:after{
+  background-image:
+    linear-gradient(180deg,
+      rgba(7,24,52,.00) 0%,
+      rgba(7,24,52,.02) 25%,
+      rgba(7,24,52,.10) 43%,
+      rgba(7,24,52,.46) 61%,
+      rgba(7,24,52,.88) 82%,
+      rgba(7,24,52,.98) 100%),
+    var(--course-bg) !important;
+  background-repeat:no-repeat, no-repeat !important;
+  background-position:center center, 50% 0 !important;
+  /* The sharp image uses its natural aspect ratio: width fills the card, height stays proportional. */
+  background-size:100% 100%, 100% auto !important;
+  filter:none !important;
+  transform:none !important;
+  opacity:1 !important;
+  z-index:-1 !important;
+}
+#app .course-card.level-basic:after{background-position:center center, 50% 0 !important;}
+#app .course-card.level-practical:after{background-position:center center, 50% 0 !important;}
+#app .course-card.level-professional:after{background-position:center center, 50% 0 !important;}
+#app .course-card.level-advanced:after{background-position:center center, 50% 0 !important;}
+
+/* Keep all important copy above the image and give it enough contrast. */
+#app .course-card .course-title,
+#app .course-card .course-card-content,
+#app .course-card h2,
+#app .course-card h3,
+#app .course-card p,
+#app .course-card strong,
+#app .course-card .tag,
+#app .course-card .row{position:relative;z-index:2}
+#app .course-card .course-title h2,
+#app .course-card .course-title p,
+#app .course-card .course-title > strong,
+#app .course-card .course-card-content > p,
+#app .course-card h3{
+  text-shadow:0 2px 5px rgba(0,0,0,.96), 0 0 12px rgba(0,0,0,.58) !important;
+}
+
+@media(max-width:720px){
+  #app .course-card:before{
+    filter:blur(6px) saturate(1.02) brightness(.80) !important;
+    transform:scale(1.025) !important;
+    opacity:.42 !important;
+  }
+  #app .course-card:after{
+    background-size:100% 100%, 100% auto !important;
+    background-position:center center, 50% 0 !important;
+  }
+}
+</style>
+</body></html>
 
 <style id="v23-visual-fix">
 /* V23 — final image framing pass.
