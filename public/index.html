@@ -1708,3 +1708,91 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   #app .course-card.level-advanced:after{background-position:center center, 50% 0 !important;}
 }
 </style>
+
+<style id="v33-full-bleed-level-images">
+/* V33 — FULL-BLEED LEVEL IMAGES
+   Final visual correction: no inner image rectangle, no visible image boundary.
+   The existing level images become the card background itself. */
+#app .course-card{
+  position:relative !important;
+  overflow:hidden !important;
+  isolation:isolate !important;
+  background-image:var(--course-bg) !important;
+  background-repeat:no-repeat !important;
+  background-size:cover !important;
+  background-position:center center !important;
+  background-color:#173d76 !important;
+}
+#app .course-card.level-basic{background-color:#0b4fa8 !important;}
+#app .course-card.level-practical{background-color:#08784e !important;}
+#app .course-card.level-professional{background-color:#4b1db2 !important;}
+#app .course-card.level-advanced{background-color:#a95a09 !important;}
+
+/* Remove the old separate image layer that was creating the square/boxed look. */
+#app .course-card:before{
+  display:none !important;
+  background:none !important;
+}
+
+/* One continuous overlay across the whole card: image fades naturally into
+   the level colour instead of ending at a rectangular edge. */
+#app .course-card:after{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:0 !important;
+  pointer-events:none !important;
+  background:linear-gradient(180deg,
+    rgba(5,20,45,.05) 0%,
+    rgba(5,20,45,.08) 26%,
+    rgba(5,20,45,.20) 45%,
+    rgba(5,20,45,.50) 64%,
+    rgba(5,20,45,.82) 82%,
+    rgba(5,20,45,.96) 100%) !important;
+}
+
+/* Keep every card element above the continuous image/overlay. */
+#app .course-card .course-card-content,
+#app .course-card .course-title,
+#app .course-card .course-title > div,
+#app .course-card h2,
+#app .course-card h3,
+#app .course-card p,
+#app .course-card strong,
+#app .course-card .tag,
+#app .course-card .progress,
+#app .course-card .row,
+#app .course-card .tests-grid,
+#app .course-card .test-card{
+  position:relative !important;
+  z-index:2 !important;
+}
+
+/* Focal points: keep the important subject visible while using the whole
+   card as the image canvas. */
+#app .course-card.level-basic{background-position:center 42% !important;}
+#app .course-card.level-practical{background-position:center 48% !important;}
+#app .course-card.level-professional{background-position:center 34% !important;}
+#app .course-card.level-advanced{background-position:center 48% !important;}
+
+/* Professional level: keep the portrait centred and visible. */
+#app .course-card.level-professional:after{
+  background:linear-gradient(180deg,
+    rgba(35,12,80,.04) 0%,
+    rgba(35,12,80,.08) 25%,
+    rgba(35,12,80,.18) 45%,
+    rgba(35,12,80,.48) 64%,
+    rgba(35,12,80,.84) 84%,
+    rgba(25,12,65,.96) 100%) !important;
+}
+
+@media(max-width:720px){
+  #app .course-card{
+    background-size:cover !important;
+  }
+  #app .course-card.level-basic{background-position:center 42% !important;}
+  #app .course-card.level-practical{background-position:center 48% !important;}
+  #app .course-card.level-professional{background-position:center 32% !important;}
+  #app .course-card.level-advanced{background-position:center 48% !important;}
+}
+</style>
