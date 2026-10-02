@@ -1386,6 +1386,78 @@ body.landing-mode .landing-lang{
 #app .course-card.level-professional .tests-grid .test-card .secondary{font-size:10px !important;padding:6px 2px !important;width:100% !important;}
 @media(max-width:720px){#app .course-card.level-professional{height:auto !important;min-height:620px !important;max-height:none !important;padding:12px !important;background-size:100% 100% !important;}#app .course-card.level-professional .course-card-content{padding:215px 12px 12px !important;}}
 </style>
+<style id="v59-level3-test-card-final">
+/* V59 — ONLY Level 3 test-card containment.
+   The previous V57 rules still allowed the Level 3 container to be shorter than
+   its complete content on some mobile layouts. Let the card grow naturally so
+   all three test cards remain fully inside the purple border. */
+#app .course-card.level-professional{
+  display:block !important;
+  box-sizing:border-box !important;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:none !important;
+  overflow:hidden !important;
+  padding:12px !important;
+}
+#app .course-card.level-professional .course-card-content{
+  display:block !important;
+  box-sizing:border-box !important;
+  height:auto !important;
+  min-height:0 !important;
+  padding:215px 12px 18px !important;
+}
+#app .course-card.level-professional .tests-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:7px !important;
+  height:auto !important;
+  min-height:0 !important;
+  margin-top:7px !important;
+  padding-bottom:2px !important;
+  overflow:visible !important;
+  align-items:start !important;
+}
+#app .course-card.level-professional .tests-grid .test-card{
+  display:block !important;
+  box-sizing:border-box !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  height:auto !important;
+  overflow:visible !important;
+  padding:9px 6px !important;
+}
+#app .course-card.level-professional .tests-grid .test-card b{
+  display:block !important;
+  font-size:12px !important;
+  line-height:1.12 !important;
+}
+#app .course-card.level-professional .tests-grid .test-card .muted{
+  font-size:11px !important;
+  line-height:1.2 !important;
+  margin:6px 0 !important;
+}
+#app .course-card.level-professional .tests-grid .test-card .secondary{
+  display:block !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+  font-size:10px !important;
+  line-height:1.1 !important;
+  padding:7px 3px !important;
+  white-space:nowrap !important;
+}
+@media(max-width:720px){
+  #app .course-card.level-professional{
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+    padding:12px !important;
+  }
+  #app .course-card.level-professional .course-card-content{
+    padding:215px 12px 18px !important;
+  }
+}
+</style>
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
