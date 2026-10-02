@@ -1230,28 +1230,42 @@ body.landing-mode .landing-lang{
 }
 </style>
 
-<style id="v46-level3-single-controlled-change">
-/* V46 — ONLY Level 3. One controlled visual change: keep the complete
-   Professional English photo visible across the full card, including the laptop,
-   without creating a separate image panel or changing Levels 1, 2 or 4. */
+<style id="v47-level3-single-controlled">
+/* V47 — ONLY Level 3. Keep one continuous full-card photo and show the full source image. */
 #app .course-card.level-professional{
+  background-color:#173d76 !important;
+  background-image:var(--course-bg) !important;
+  background-repeat:no-repeat !important;
+  background-position:center top !important;
   background-size:100% 100% !important;
-  background-position:center center !important;
+  overflow:hidden !important;
+}
+#app .course-card.level-professional:before{display:none !important;}
+#app .course-card.level-professional:after{
+  display:block !important;
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:0 !important;
+  pointer-events:none !important;
+  background:linear-gradient(180deg,rgba(7,24,52,.02) 0%,rgba(7,24,52,.08) 38%,rgba(7,24,52,.34) 72%,rgba(7,24,52,.70) 100%) !important;
 }
 #app .course-card.level-professional .course-card-content{
+  position:relative !important;
+  z-index:1 !important;
   padding-top:390px !important;
 }
 @media(max-width:720px){
   #app .course-card.level-professional{
+    background-image:var(--course-bg) !important;
     background-size:100% 100% !important;
-    background-position:center center !important;
+    background-position:center top !important;
   }
   #app .course-card.level-professional .course-card-content{
     padding:390px 15px 15px !important;
   }
 }
 </style>
-
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
