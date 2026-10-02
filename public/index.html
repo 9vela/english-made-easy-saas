@@ -1229,43 +1229,6 @@ body.landing-mode .landing-lang{
   }
 }
 </style>
-
-<style id="v47-level3-single-controlled">
-/* V47 — ONLY Level 3. Keep one continuous full-card photo and show the full source image. */
-#app .course-card.level-professional{
-  background-color:#173d76 !important;
-  background-image:var(--course-bg) !important;
-  background-repeat:no-repeat !important;
-  background-position:center top !important;
-  background-size:100% 100% !important;
-  overflow:hidden !important;
-}
-#app .course-card.level-professional:before{display:none !important;}
-#app .course-card.level-professional:after{
-  display:block !important;
-  content:"" !important;
-  position:absolute !important;
-  inset:0 !important;
-  z-index:0 !important;
-  pointer-events:none !important;
-  background:linear-gradient(180deg,rgba(7,24,52,.02) 0%,rgba(7,24,52,.08) 38%,rgba(7,24,52,.34) 72%,rgba(7,24,52,.70) 100%) !important;
-}
-#app .course-card.level-professional .course-card-content{
-  position:relative !important;
-  z-index:1 !important;
-  padding-top:390px !important;
-}
-@media(max-width:720px){
-  #app .course-card.level-professional{
-    background-image:var(--course-bg) !important;
-    background-size:100% 100% !important;
-    background-position:center top !important;
-  }
-  #app .course-card.level-professional .course-card-content{
-    padding:390px 15px 15px !important;
-  }
-}
-</style>
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
@@ -1484,6 +1447,52 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   }
 }
 </style>
+
+<style id="v48-level3-single-controlled">
+/* V48 — ONLY Level 3. Keep the original single background photo, reveal the full source image,
+   keep the laptop visible, and place the copy below the face without adding an image panel. */
+#app .course-card.level-professional{
+  background-color:#173d76 !important;
+  background-image:none !important;
+  overflow:hidden !important;
+  isolation:isolate !important;
+}
+#app .course-card.level-professional:before{
+  background-image:var(--course-bg) !important;
+  background-size:100% 100% !important;
+  background-position:center center !important;
+  background-repeat:no-repeat !important;
+  transform:none !important;
+  filter:none !important;
+  opacity:1 !important;
+}
+#app .course-card.level-professional:after{
+  background:linear-gradient(180deg,rgba(7,24,52,.03) 0%,rgba(7,24,52,.08) 34%,rgba(7,24,52,.30) 57%,rgba(7,24,52,.78) 100%) !important;
+}
+#app .course-card.level-professional .course-card-content{
+  padding-top:350px !important;
+}
+#app .course-card.level-professional .course-title{
+  margin-top:0 !important;
+}
+#app .course-card.level-professional .course-title h2{
+  margin-top:6px !important;
+  margin-bottom:10px !important;
+}
+#app .course-card.level-professional .course-title p{
+  margin-bottom:14px !important;
+}
+@media(max-width:720px){
+  #app .course-card.level-professional:before{
+    background-size:100% 100% !important;
+    background-position:center center !important;
+  }
+  #app .course-card.level-professional .course-card-content{
+    padding:350px 15px 15px !important;
+  }
+}
+</style>
+
 </body></html>
 
 <style id="v23-visual-fix">
