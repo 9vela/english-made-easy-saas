@@ -1723,6 +1723,122 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
   }
 }
 </style>
+
+
+<style id="v55-level3-tests-visible">
+/* V55 — ONLY Level 3.
+   Keep the same full professional image as the continuous background.
+   Main fix: the three test cards must be completely visible inside the card.
+   Do not change Levels 1, 2 or 4. */
+#app .course-card.level-professional{
+  height:690px !important;
+  min-height:690px !important;
+  max-height:690px !important;
+  padding:12px !important;
+  overflow:hidden !important;
+  box-sizing:border-box !important;
+  background-size:100% 100% !important;
+  background-position:center center !important;
+}
+
+#app .course-card.level-professional .course-card-content{
+  padding:278px 12px 8px !important;
+  box-sizing:border-box !important;
+}
+
+#app .course-card.level-professional .course-title h2{
+  font-size:25px !important;
+  line-height:1.05 !important;
+  margin:3px 0 6px !important;
+  white-space:nowrap !important;
+}
+
+#app .course-card.level-professional .course-title p{
+  font-size:13px !important;
+  line-height:1.28 !important;
+  margin:0 0 7px !important;
+  max-width:100% !important;
+}
+
+#app .course-card.level-professional .progress{
+  margin:6px 0 !important;
+  height:10px !important;
+}
+
+#app .course-card.level-professional .course-card-content > p{
+  margin:5px 0 !important;
+  font-size:13px !important;
+}
+
+#app .course-card.level-professional .row{
+  margin:5px 0 !important;
+}
+
+#app .course-card.level-professional .row button{
+  padding:10px 16px !important;
+}
+
+#app .course-card.level-professional .tests-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:7px !important;
+  margin-top:5px !important;
+  align-items:stretch !important;
+}
+
+#app .course-card.level-professional .tests-grid .test-card{
+  min-width:0 !important;
+  min-height:105px !important;
+  padding:8px 5px !important;
+  border-radius:14px !important;
+  box-sizing:border-box !important;
+}
+
+#app .course-card.level-professional .tests-grid .test-card b{
+  display:block !important;
+  font-size:11px !important;
+  line-height:1.12 !important;
+}
+
+#app .course-card.level-professional .tests-grid .test-card .muted{
+  font-size:10px !important;
+  line-height:1.1 !important;
+  margin:4px 0 !important;
+}
+
+#app .course-card.level-professional .tests-grid .test-card .secondary{
+  font-size:10px !important;
+  line-height:1.1 !important;
+  padding:6px 3px !important;
+  border-radius:9px !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+}
+
+@media(max-width:720px){
+  #app .course-card.level-professional{
+    height:690px !important;
+    min-height:690px !important;
+    max-height:690px !important;
+    padding:12px !important;
+    background-size:100% 100% !important;
+    background-position:center center !important;
+  }
+  #app .course-card.level-professional .course-card-content{
+    padding:278px 12px 8px !important;
+  }
+  #app .course-card.level-professional .course-title h2{
+    font-size:25px !important;
+  }
+  #app .course-card.level-professional .course-title p{
+    font-size:13px !important;
+  }
+  #app .course-card.level-professional .tests-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:6px !important;
+  }
+}
+</style>
 </body></html>
 
 <style id="v23-visual-fix">
