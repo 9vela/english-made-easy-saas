@@ -1297,6 +1297,95 @@ body.landing-mode .landing-lang{
   }
 }
 </style>
+
+<style id="v57-level3-tests-visible">
+/* V57 — Level 3 only. Remove the clipping source: the previous fixed card height
+   was cutting off the lower part of the three test cards. Keep the card compact
+   by tightening the content instead of hiding it. */
+#app .course-card.level-professional{
+  height:auto !important;
+  min-height:620px !important;
+  max-height:none !important;
+  overflow:hidden !important;
+  padding:12px !important;
+  background-size:100% 100% !important;
+  background-position:center center !important;
+}
+#app .course-card.level-professional .course-card-content{
+  padding:215px 12px 12px !important;
+}
+#app .course-card.level-professional .course-title h2{
+  font-size:27px !important;
+  line-height:1.02 !important;
+  margin:3px 0 6px !important;
+}
+#app .course-card.level-professional .course-title p{
+  font-size:14px !important;
+  line-height:1.28 !important;
+  margin:0 0 6px !important;
+}
+#app .course-card.level-professional .progress{margin:5px 0 !important;height:10px !important;}
+#app .course-card.level-professional .course-card-content > p{margin:5px 0 !important;}
+#app .course-card.level-professional .row{margin:5px 0 !important;}
+#app .course-card.level-professional .row button{padding:8px 15px !important;}
+#app .course-card.level-professional h3{margin:7px 0 5px !important;}
+#app .course-card.level-professional .tests-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:6px !important;
+  margin-top:5px !important;
+  align-items:start !important;
+}
+#app .course-card.level-professional .tests-grid .test-card{
+  min-width:0 !important;
+  min-height:92px !important;
+  height:auto !important;
+  padding:7px 5px !important;
+  border-radius:13px !important;
+  overflow:visible !important;
+}
+#app .course-card.level-professional .tests-grid .test-card b{
+  font-size:11.5px !important;
+  line-height:1.1 !important;
+}
+#app .course-card.level-professional .tests-grid .test-card .muted{
+  font-size:10.5px !important;
+  margin:4px 0 !important;
+}
+#app .course-card.level-professional .tests-grid .test-card .secondary{
+  font-size:10px !important;
+  padding:6px 2px !important;
+  width:100% !important;
+}
+@media(max-width:720px){
+  #app .course-card.level-professional{
+    height:auto !important;
+    min-height:620px !important;
+    max-height:none !important;
+    padding:12px !important;
+    background-size:100% 100% !important;
+  }
+  #app .course-card.level-professional .course-card-content{
+    padding:215px 12px 12px !important;
+  }
+}
+</style>
+<style id="v57-level3-tests-visible">
+#app .course-card.level-professional{height:auto !important;min-height:620px !important;max-height:none !important;overflow:hidden !important;padding:12px !important;background-size:100% 100% !important;background-position:center center !important;}
+#app .course-card.level-professional .course-card-content{padding:215px 12px 12px !important;}
+#app .course-card.level-professional .course-title h2{font-size:27px !important;line-height:1.02 !important;margin:3px 0 6px !important;}
+#app .course-card.level-professional .course-title p{font-size:14px !important;line-height:1.28 !important;margin:0 0 6px !important;}
+#app .course-card.level-professional .progress{margin:5px 0 !important;height:10px !important;}
+#app .course-card.level-professional .course-card-content > p{margin:5px 0 !important;}
+#app .course-card.level-professional .row{margin:5px 0 !important;}
+#app .course-card.level-professional .row button{padding:8px 15px !important;}
+#app .course-card.level-professional h3{margin:7px 0 5px !important;}
+#app .course-card.level-professional .tests-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:6px !important;margin-top:5px !important;align-items:start !important;}
+#app .course-card.level-professional .tests-grid .test-card{min-width:0 !important;min-height:92px !important;height:auto !important;padding:7px 5px !important;border-radius:13px !important;overflow:visible !important;}
+#app .course-card.level-professional .tests-grid .test-card b{font-size:11.5px !important;line-height:1.1 !important;}
+#app .course-card.level-professional .tests-grid .test-card .muted{font-size:10.5px !important;margin:4px 0 !important;}
+#app .course-card.level-professional .tests-grid .test-card .secondary{font-size:10px !important;padding:6px 2px !important;width:100% !important;}
+@media(max-width:720px){#app .course-card.level-professional{height:auto !important;min-height:620px !important;max-height:none !important;padding:12px !important;background-size:100% 100% !important;}#app .course-card.level-professional .course-card-content{padding:215px 12px 12px !important;}}
+</style>
 </head>
 <body>
 <header><div class="nav"><div class="brand"><img class="brand-emblem" src="/emblem.jpg" alt="English Made Easy emblem"><div class="brand-copy"><div>English Made Easy</div><div class="brand-sub">LEARN • PRACTICE • SPEAK</div></div></div><div class="nav-actions"><select id="landingLang" class="landing-lang" aria-label="Language"><option value="en">🌐 EN</option><option value="pt">🌐 PT</option></select><div id="accountTools" class="account-tools hidden"><button class="icon-btn" title="Profile" aria-label="Profile" onclick="openProfileMenu()">👤</button><button class="icon-btn" title="Settings" aria-label="Settings" onclick="openSettingsMenu()">⚙️</button></div><button id="dashBtn" class="secondary hidden">Dashboard</button><button id="loginBtn" class="ghost hidden">Log in →</button><button id="registerBtn" class="primary hidden">Create account →</button><button id="logoutBtn" class="danger hidden">Log out</button></div></div></header>
