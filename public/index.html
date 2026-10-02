@@ -2536,26 +2536,23 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
    Show the complete photo, including the laptop, and keep the text below the face.
    Do not change Levels 1, 2 or 4. */
 #app .course-card.level-professional{
-  min-height:820px !important;
-  height:820px !important;
+  min-height:760px !important;
+  height:760px !important;
   padding:15px !important;
-  background:#173d76 !important;
-  background-image:none !important;
   overflow:hidden !important;
   box-sizing:border-box !important;
-}
-
-#app .course-card.level-professional:before{
-  background-image:var(--course-bg) !important;
-  background-size:100% 100% !important;
+  background-color:#173d76 !important;
+  background-image:linear-gradient(180deg,rgba(7,24,52,.04) 0%,rgba(7,24,52,.10) 35%,rgba(7,24,52,.58) 68%,rgba(7,24,52,.92) 100%),var(--course-bg) !important;
   background-repeat:no-repeat !important;
   background-position:center center !important;
-  transform:none !important;
-  filter:none !important;
+  background-size:100% 100% !important;
 }
 
+/* Level 3 image is the card's actual background — no separate image block. */
+#app .course-card.level-professional:before,
 #app .course-card.level-professional:after{
-  background:linear-gradient(180deg,rgba(7,24,52,.02) 0%,rgba(7,24,52,.08) 38%,rgba(7,24,52,.68) 72%,rgba(7,24,52,.92) 100%) !important;
+  display:none !important;
+  content:none !important;
 }
 
 #app .course-card.level-professional .course-card-content{
@@ -2598,16 +2595,14 @@ $('loginBtn').onclick=openLogin;$('registerBtn').onclick=openRegister;$('logoutB
 
 @media(max-width:720px){
   #app .course-card.level-professional{
-    min-height:820px !important;
-    height:820px !important;
+    min-height:760px !important;
+    height:760px !important;
     padding:14px !important;
-  }
-  #app .course-card.level-professional:before{
     background-size:100% 100% !important;
     background-position:center center !important;
   }
   #app .course-card.level-professional .course-card-content{
-    padding:395px 15px 12px !important;
+    padding:340px 15px 12px !important;
   }
   #app .course-card.level-professional .course-title h2{
     font-size:28px !important;
