@@ -1,8 +1,13 @@
 {
-  "name":"english-made-easy-saas",
-  "version":"5.0.0",
-  "private":true,
-  "scripts":{"start":"node server.js"},
-  "engines":{"node":">=20 <25"},
-  "dependencies":{"express":"^4.21.2","pg":"^8.16.3"}
+  "name": "english-made-easy-3.0",
+  "version": "3.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  }
 }
